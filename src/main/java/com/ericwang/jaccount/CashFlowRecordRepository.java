@@ -4,44 +4,25 @@ import java.util.ArrayList;
 
 public class CashFlowRecordRepository {
     private ArrayList<CashFlowRecord> recordList;
+    private DBController controller;
 
-    public CashFlowRecordRepository(){
+    public CashFlowRecordRepository(DBController dbController){
         recordList = new ArrayList<>();
+        controller = dbController;
     }
 
     public void refresh(){
         recordList.clear();
 
-        recordList.add(new CashFlowRecord(
-                1,
-                100,
-                "2022-11-01",
-                1));
-        recordList.add(new CashFlowRecord(
-                2,
-                150,
-                "2022-11-01",
-                1));
-        recordList.add(new CashFlowRecord(
-                3,
-                80,
-                "2022-11-02",
-                2));
-        recordList.add(new CashFlowRecord(
-                4,
-                120,
-                "2022-11-02",
-                2));
-        recordList.add(new CashFlowRecord(
-                5,
-                180,
-                "2022-11-02",
-                3));
-        recordList.add(new CashFlowRecord(
-                6,
-                180,
-                "2022-11-03",
-                1));
+        for (int i = 1; i < controller.getRows() + 1; i++) {
+            recordList.add(
+                    new CashFlowRecord(
+                            Integer.parseInt(controller.getData(i, 1)),
+                            Integer.parseInt(controller.getData(i, 2)),
+                            controller.getData(i, 3),
+                            Integer.parseInt(controller.getData(i, 4)))
+            );
+        }
     }
 
     public ArrayList<CashFlowRecord> getRecordList() {

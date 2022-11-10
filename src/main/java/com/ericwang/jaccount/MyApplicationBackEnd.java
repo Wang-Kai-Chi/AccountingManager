@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 class MyApplicationBackEnd {
-    private final MemberRepository memberRepository;
+    private final CashFlowRecordRepository cashFlowRecordRepository;
 
     public MyApplicationBackEnd(MySQLConnectionBuilder mySQLConnectionBuilder) {
         System.out.println("connection start");
@@ -12,13 +12,13 @@ class MyApplicationBackEnd {
         ApplicationActor applicationActor = new ApplicationActor();
         applicationActor.start(mySQLConnectionBuilder.getConnection());
 
-        memberRepository = new MemberRepository(applicationActor.getController());
-        memberRepository.refresh();
+        cashFlowRecordRepository = new CashFlowRecordRepository(applicationActor.getController());
+        cashFlowRecordRepository.refresh();
     }
 
     public void printData(){
-        for (Member m : memberRepository.getMemberList())
-            System.out.println(m);
+        for (CashFlowRecord c : cashFlowRecordRepository.getRecordList())
+            System.out.println(c);
     }
 
     private static class ApplicationActor {
@@ -29,7 +29,7 @@ class MyApplicationBackEnd {
         }
 
         public void start(Connection connection) {
-            String sql = "SELECT * FROM member";
+            String sql = "SELECT * FROM cash_flow_record";
             try {
                 controller.query(sql, connection);
                 //controller.add();
