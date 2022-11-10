@@ -3,10 +3,10 @@ package com.ericwang.jaccount;
 import java.sql.*;
 import java.util.Properties;
 
-class DBConnector {
-    private Connection connection;
+class MySQLConnectionBuilder {
+    private final Connection connection;
 
-    public DBConnector(String dbName) throws SQLException {
+    public MySQLConnectionBuilder(String dbName) throws SQLException {
         Properties prop = new Properties();
         prop.put("user", "root");
         prop.put("password", "root");
