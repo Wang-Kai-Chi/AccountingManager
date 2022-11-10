@@ -19,9 +19,9 @@ public class DBController {
         try {
             resultSet.moveToInsertRow();
             String[] headers = tableHeaders.getHeaders();
-            resultSet.updateString(headers[1], "test");
-            resultSet.updateString(headers[2], "1999-01-01");
-            resultSet.updateString(headers[3], "test");
+            resultSet.updateInt(headers[1], 100);
+            resultSet.updateString(headers[2], "2022-11-05");
+            resultSet.updateInt(headers[3], 1);
             resultSet.insertRow();
             System.out.println("insert a new row");
         } catch (SQLException e) {
