@@ -4,17 +4,19 @@ public class CashFlowRecord {
     private final int id;
     private int amount_of_money;
     private String date;
-    private String category;
+    private int category_id;
 
     public CashFlowRecord(int id) {
         this.id = id;
     }
 
-    public CashFlowRecord(int id, int amount_of_money, String date, String category) {
+
+
+    public CashFlowRecord(int id, int amount_of_money, String date, int category_id) {
         this.id = id;
         this.amount_of_money = amount_of_money;
         this.date = date;
-        this.category = category;
+        this.category_id = category_id;
     }
 
     public void setAmount_of_money(int amount_of_money) {
@@ -25,8 +27,8 @@ public class CashFlowRecord {
         this.date = date;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public int getId() {
@@ -41,8 +43,8 @@ public class CashFlowRecord {
         return date;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategory_id() {
+        return category_id;
     }
 
     @Override
@@ -51,7 +53,7 @@ public class CashFlowRecord {
                 "id=" + id +
                 ", amount_of_money=" + amount_of_money +
                 ", date='" + date + '\'' +
-                ", category='" + category + '\'' +
+                ", category='" + category_id + '\'' +
                 '}';
     }
 }

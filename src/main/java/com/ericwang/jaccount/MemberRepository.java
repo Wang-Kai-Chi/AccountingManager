@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 class MemberRepository {
     private final ArrayList<Member> memberList;
+    private DBController controller;
 
-    public MemberRepository() {
+    public MemberRepository(DBController controller) {
         memberList = new ArrayList<>();
+        this.controller = controller;
     }
 
-    public void refresh(DBController controller) {
+    public void refresh() {
         memberList.clear();
 
         for (int i = 1; i < controller.getRows() + 1; i++) {

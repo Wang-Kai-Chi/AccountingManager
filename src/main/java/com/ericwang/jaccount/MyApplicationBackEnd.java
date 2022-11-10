@@ -12,8 +12,8 @@ class MyApplicationBackEnd {
         ApplicationActor applicationActor = new ApplicationActor();
         applicationActor.start(mySQLConnectionBuilder.getConnection());
 
-        memberRepository = new MemberRepository();
-        memberRepository.refresh(applicationActor.getController());
+        memberRepository = new MemberRepository(applicationActor.getController());
+        memberRepository.refresh();
     }
 
     public void printData(){
