@@ -21,12 +21,15 @@ class DBConnector {
                 ResultSet.CONCUR_UPDATABLE);
         resultSet = stmt.executeQuery(sql);
 
-        ResultSetMetaData rsmd = resultSet.getMetaData();
-        int colCount = rsmd.getColumnCount();
+        initHeaders(resultSet.getMetaData());
+    }
+
+    private void initHeaders(ResultSetMetaData r) throws SQLException {
+        int colCount = r.getColumnCount();
         headers = new String[colCount];
 
         for (int i = 0; i < headers.length; i++) {
-            headers[i] = rsmd.getColumnName(i + 1);
+            headers[i] = r.getColumnName(i + 1);
         }
     }
 
@@ -35,7 +38,6 @@ class DBConnector {
             resultSet.last();
             return resultSet.getRow();
         } catch (SQLException e) {
-
             return 0;
         }
     }
