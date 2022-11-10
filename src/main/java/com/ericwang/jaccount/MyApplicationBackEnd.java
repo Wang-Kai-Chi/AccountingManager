@@ -4,21 +4,25 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 class MyApplicationBackEnd {
+    private final MemberRepository memberRepository;
+
     public MyApplicationBackEnd(MySQLConnectionBuilder mySQLConnectionBuilder) {
         System.out.println("connection start");
 
         ApplicationActor applicationActor = new ApplicationActor();
         applicationActor.start(mySQLConnectionBuilder.getConnection());
 
-        MemberRepository memberRepository = new MemberRepository();
+        memberRepository = new MemberRepository();
         memberRepository.refresh(applicationActor.getController());
+    }
 
+    public void printData(){
         for (Member m : memberRepository.getMemberList())
             System.out.println(m);
     }
 
-    private class ApplicationActor {
-        private DBController controller;
+    private static class ApplicationActor {
+        private final DBController controller;
 
         public ApplicationActor() {
             controller = new DBController();
