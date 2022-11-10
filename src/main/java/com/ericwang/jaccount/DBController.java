@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DBController {
     private ResultSet resultSet;
-    private String[] headers;
+    private TableHeaders tableHeaders;
 
     public void query(String sql, Connection connection) throws SQLException {
         Statement stmt = connection.createStatement(
@@ -12,24 +12,16 @@ public class DBController {
                 ResultSet.CONCUR_UPDATABLE);
         resultSet = stmt.executeQuery(sql);
 
-        initHeaders(resultSet.getMetaData());
-    }
-
-    private void initHeaders(ResultSetMetaData r) throws SQLException {
-        int colCount = r.getColumnCount();
-        headers = new String[colCount];
-
-        for (int i = 0; i < headers.length; i++) {
-            headers[i] = r.getColumnName(i + 1);
-        }
+        tableHeaders = new TableHeaders(resultSet.getMetaData());
     }
 
     public void add() {
         try {
             resultSet.moveToInsertRow();
-            resultSet.updateString("name", "test");
-            resultSet.updateString("birthday", "1999-01-01");
-            resultSet.updateString("role", "test");
+            String[] headers = tableHeaders.getHeaders();
+            resultSet.updateString(headers[1], "test");
+            resultSet.updateString(headers[2], "1999-01-01");
+            resultSet.updateString(headers[3], "test");
             resultSet.insertRow();
             System.out.println("insert a new row");
         } catch (SQLException e) {
@@ -58,11 +50,11 @@ public class DBController {
     }
 
     public int getCols() {
-        return headers.length;
+        return tableHeaders.getHeaders().length;
     }
 
     public String[] getHeaders() {
-        return headers;
+        return tableHeaders.getHeaders();
     }
 
     public String getData(int row, int col) {
@@ -73,5 +65,22 @@ public class DBController {
             System.out.printf("%d : %d :%s\n", row, col, e);
             return "no data";
         }
+    }
+}
+
+class TableHeaders{
+    private final String[] headers;
+
+    public TableHeaders(ResultSetMetaData r) throws SQLException {
+        int colCount = r.getColumnCount();
+        headers = new String[colCount];
+
+        for (int i = 0; i < headers.length; i++) {
+            headers[i] = r.getColumnName(i + 1);
+        }
+    }
+
+    public String[] getHeaders() {
+        return headers;
     }
 }
