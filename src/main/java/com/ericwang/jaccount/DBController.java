@@ -24,6 +24,30 @@ public class DBController {
         }
     }
 
+    public void add() {
+        try {
+            resultSet.moveToInsertRow();
+            resultSet.updateString("name", "test");
+            resultSet.updateString("birthday", "1999-01-01");
+            resultSet.updateString("role", "test");
+            resultSet.insertRow();
+            System.out.println("insert a new row");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void update(int row, String header, String data) {
+		try {
+			resultSet.absolute(row);
+			resultSet.updateString(header, data);
+			resultSet.updateRow();
+		} catch (SQLException e) {
+			System.out.printf("%d : %s :%s\n", row, header, e);
+		}
+	}
+
     public int getRows() {
         try {
             resultSet.last();

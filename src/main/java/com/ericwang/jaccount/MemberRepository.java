@@ -7,17 +7,19 @@ class MemberRepository {
 
     public MemberRepository() {
         memberList = new ArrayList<>();
-
     }
 
-    public void init(DBController controller) {
+    public void refresh(DBController controller) {
+        memberList.clear();
+
         for (int i = 1; i < controller.getRows() + 1; i++) {
             memberList.add(
                     new Member(
                             Integer.parseInt(controller.getData(i, 1)),
                             controller.getData(i, 2),
                             controller.getData(i, 3),
-                            controller.getData(i, 4)));
+                            controller.getData(i, 4))
+            );
         }
     }
 

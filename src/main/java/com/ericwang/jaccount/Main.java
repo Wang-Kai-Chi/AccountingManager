@@ -12,8 +12,13 @@ public class Main {
             DBController controller = new DBController();
             controller.query("SELECT * FROM member", mySQLConnectionBuilder.getConnection());
 
+            //controller.add();
+            controller.update(controller.getRows(), "name", "John");
+            controller.update(controller.getRows(), "birthday", "1989-10-29");
+            controller.update(controller.getRows(), "role", "solder");
+
             MemberRepository memberRepository = new MemberRepository();
-            memberRepository.init(controller);
+            memberRepository.refresh(controller);
 
             System.out.println(memberRepository.getMemberList());
         } catch (SQLException e) {
