@@ -1,6 +1,12 @@
+package com.ericwang.jaccount;
+
 public class Member {
     private int id;
     private String name, birthday, role;
+
+    public Member(int id) {
+        this.id = id;
+    }
 
     public Member(int id, String name, String birthday, String role) {
         this.id = id;
@@ -35,5 +41,15 @@ public class Member {
 
     public String getRole() {
         return role;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
