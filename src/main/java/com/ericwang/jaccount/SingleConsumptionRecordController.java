@@ -2,7 +2,7 @@ package com.ericwang.jaccount;
 
 import java.sql.*;
 
-public class DBController {
+public class SingleConsumptionRecordController {
     private ResultSet resultSet;
     private TableHeaders tableHeaders;
 
@@ -22,6 +22,7 @@ public class DBController {
             resultSet.updateInt(headers[1], 100);
             resultSet.updateString(headers[2], "2022-11-05");
             resultSet.updateInt(headers[3], 1);
+            resultSet.updateString(headers[4], "");
             resultSet.insertRow();
             System.out.println("insert a new row");
         } catch (SQLException e) {

@@ -22,14 +22,14 @@ class MyApplicationBackEnd {
     }
 
     private static class ApplicationActor {
-        private final DBController controller;
+        private final SingleConsumptionRecordController controller;
 
         public ApplicationActor() {
-            controller = new DBController();
+            controller = new SingleConsumptionRecordController();
         }
 
         public void start(Connection connection) {
-            String sql = "SELECT * FROM cash_flow_record";
+            String sql = "SELECT * FROM single_consumption_record";
             try {
                 controller.query(sql, connection);
                 //controller.add();
@@ -42,7 +42,7 @@ class MyApplicationBackEnd {
             System.out.println("Query command: " + sql);
         }
 
-        public DBController getController() {
+        public SingleConsumptionRecordController getController() {
             return controller;
         }
     }
