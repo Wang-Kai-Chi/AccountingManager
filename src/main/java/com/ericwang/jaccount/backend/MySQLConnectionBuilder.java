@@ -1,9 +1,9 @@
-package com.ericwang.jaccount;
+package com.ericwang.jaccount.backend;
 
 import java.sql.*;
 import java.util.Properties;
 
-class MySQLConnectionBuilder {
+public class MySQLConnectionBuilder {
     private final Connection connection;
 
     public MySQLConnectionBuilder(String dbName) throws SQLException {

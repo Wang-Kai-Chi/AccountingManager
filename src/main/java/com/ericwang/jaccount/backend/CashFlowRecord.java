@@ -1,4 +1,4 @@
-package com.ericwang.jaccount;
+package com.ericwang.jaccount.backend;
 
 public class CashFlowRecord {
 	private final int id;

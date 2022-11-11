@@ -2,6 +2,10 @@ package com.ericwang.jaccount;
 
 import java.sql.SQLException;
 
+import com.ericwang.jaccount.backend.MyApplicationBackEnd;
+import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
+import com.ericwang.jaccount.frontend.MyApplicationFrame;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,8 +16,11 @@ public class Main {
                     new MySQLConnectionBuilder("accounting_db01"));
 
             myApplicationBackEnd.printData();
+            
+            MyApplicationFrame myApplicationFrame = new MyApplicationFrame(myApplicationBackEnd);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
     }
 }
