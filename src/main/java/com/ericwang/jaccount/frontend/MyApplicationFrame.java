@@ -2,12 +2,9 @@ package com.ericwang.jaccount.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -15,10 +12,13 @@ import com.ericwang.jaccount.backend.CashFlowRecordRepository;
 
 public class MyApplicationFrame extends JFrame{
 	private CashFlowTable cashFlowTable;
-	private JButton addButton;
+	private CashFlowRecordRepository repo;
+	private AddingRecordDialog dialog;
 	
 	public MyApplicationFrame(CashFlowRecordRepository repo) {
 		super("記帳本");
+		
+		this.repo = repo;
 		
 		setLayout(new BorderLayout());
 		
@@ -26,29 +26,40 @@ public class MyApplicationFrame extends JFrame{
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 		
-		JPanel jPanel = new JPanel(new FlowLayout());
-		addButton = new JButton("add");
-		jPanel.add(addButton);
-		add(jPanel, BorderLayout.NORTH);
+		ManagePanel managePanel = new ManagePanel(this);
+		add(managePanel, BorderLayout.NORTH);
 		
-		setActionListeners(this);
+		dialog = new AddingRecordDialog(this);
 		
 		setSize(800, 480);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	private void setActionListeners(JFrame frame) {
-		addButton.addActionListener(new ActionListener() {
+	
+	private class ManagePanel extends JPanel{
+		private JButton addButton, refreshButton;
+	
+		public ManagePanel(JFrame frame) {
+			super(new FlowLayout());
 			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String[] options = new String[] {
-					"1", "2", "3"
-				};
-				JOptionPane.showInputDialog(frame, "輸入金額", "新增消費", 
-						JOptionPane.PLAIN_MESSAGE, null, options, "1");
-			}
-		});
+			addButton = new JButton("新增");
+			refreshButton = new JButton("刷新");
+			add(addButton);
+			add(refreshButton);
+			
+			
+			setActionListeners(frame);
+		}
+		private void setActionListeners(JFrame frame) {
+			addButton.addActionListener(e -> {
+				dialog.setVisible(true);
+			});
+			
+			refreshButton.addActionListener(e->{
+				repo.refresh();
+				repaint();
+			});
+		}
 	}
 }

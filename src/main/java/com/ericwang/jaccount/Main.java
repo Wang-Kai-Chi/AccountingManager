@@ -1,7 +1,5 @@
 package com.ericwang.jaccount;
 
-import java.sql.SQLException;
-
 import com.ericwang.jaccount.backend.CashFlowRecordRepository;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
