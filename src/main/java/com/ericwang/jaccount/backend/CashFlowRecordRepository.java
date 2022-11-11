@@ -7,15 +7,19 @@ public class CashFlowRecordRepository {
 	private SingleConsumptionRecordController controller;
 	private String[] headers;
 
-	public CashFlowRecordRepository(SingleConsumptionRecordController dbController) {
+	public CashFlowRecordRepository() {
 		recordList = new ArrayList<>();
-		controller = dbController;
-		
+
 		addDefaultValues();
 		
 		headers = new String[] {
-			"id", "money", "date", "category_id", "description"
+				"id", "money", "date", "category_id", "description"
 		};
+	}
+
+	public CashFlowRecordRepository(SingleConsumptionRecordController dbController) {
+		this();
+		controller = dbController;
 	}
 	
 	private void addDefaultValues() {

@@ -11,19 +11,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.ericwang.jaccount.backend.MyApplicationBackEnd;
+import com.ericwang.jaccount.backend.CashFlowRecordRepository;
 
 public class MyApplicationFrame extends JFrame{
 	private CashFlowTable cashFlowTable;
-	private MyApplicationBackEnd backEnd;
 	private JButton addButton;
 	
-	public MyApplicationFrame(MyApplicationBackEnd backEnd) {
+	public MyApplicationFrame(CashFlowRecordRepository repo) {
 		super("記帳本");
 		
 		setLayout(new BorderLayout());
 		
-		cashFlowTable = new CashFlowTable(backEnd.getCashFlowRecordRepository());
+		cashFlowTable = new CashFlowTable(repo);
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 		
