@@ -4,28 +4,29 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.ericwang.jaccount.backend.CashFlowRecordRepository;
+import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
 
 public class CashFlowTable extends JTable{
 	private MyTableModel tableModel;
-	private CashFlowRecordRepository cashFlowRecordRepository;
+	private SingleConsumptionRecordController controller;
 	
-	public CashFlowTable(CashFlowRecordRepository cashFlowRecordRepository) {
+	public CashFlowTable(SingleConsumptionRecordController controller) {
+		this.controller = controller;
+		
 		tableModel = new MyTableModel();
 		setModel(tableModel);
-		
-		this.cashFlowRecordRepository = cashFlowRecordRepository;
 	}
 	
 	private class MyTableModel extends DefaultTableModel{
 
 		@Override
 		public int getRowCount() {
-			return 7;
+			return controller.getRows();
 		}
 
 		@Override
 		public int getColumnCount() {
-			return 5;
+			return controller.getCols();
 		}
 
 		@Override
@@ -35,7 +36,7 @@ public class CashFlowTable extends JTable{
 
 		@Override
 		public Object getValueAt(int row, int column) {
-			return super.getValueAt(row, column);
+			return controller.getData(row+1, column+1);
 		}
 		
 	}

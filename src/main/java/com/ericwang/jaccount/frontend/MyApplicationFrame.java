@@ -16,7 +16,7 @@ public class MyApplicationFrame extends JFrame{
 		
 		setLayout(new BorderLayout());
 		
-		cashFlowTable = new CashFlowTable(backEnd.getCashFlowRecordRepository());
+		cashFlowTable = new CashFlowTable(backEnd.getController());
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 		
