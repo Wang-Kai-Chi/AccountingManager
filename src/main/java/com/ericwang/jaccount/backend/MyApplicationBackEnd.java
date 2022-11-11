@@ -15,7 +15,10 @@ public class MyApplicationBackEnd {
 		applicationActor.start(mySQLConnectionBuilder.getConnection());
 
 		cashFlowRecordRepository = new CashFlowRecordRepository(applicationActor.getController());
-		cashFlowRecordRepository.refresh();
+	}
+	
+	public void refresh() {
+		cashFlowRecordRepository.refresh();		
 	}
 
 	public void printData() {

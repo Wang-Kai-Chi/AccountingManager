@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +23,7 @@ public class MyApplicationFrame extends JFrame{
 		
 		setLayout(new BorderLayout());
 		
-		cashFlowTable = new CashFlowTable(backEnd.getController());
+		cashFlowTable = new CashFlowTable(backEnd.getCashFlowRecordRepository());
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 		
@@ -45,7 +44,11 @@ public class MyApplicationFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showInputDialog(frame, "輸入金額", "新增消費", JOptionPane.YES_NO_OPTION);
+				String[] options = new String[] {
+					"1", "2", "3"
+				};
+				JOptionPane.showInputDialog(frame, "輸入金額", "新增消費", 
+						JOptionPane.PLAIN_MESSAGE, null, options, "1");
 			}
 		});
 	}

@@ -15,6 +15,7 @@ public class Main {
             MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(
                     new MySQLConnectionBuilder("accounting_db01"));
 
+            myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
             
             MyApplicationFrame myApplicationFrame = new MyApplicationFrame(myApplicationBackEnd);

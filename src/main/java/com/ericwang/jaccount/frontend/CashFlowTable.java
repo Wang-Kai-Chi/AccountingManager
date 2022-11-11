@@ -3,31 +3,32 @@ package com.ericwang.jaccount.frontend;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.ericwang.jaccount.backend.CashFlowRecord;
 import com.ericwang.jaccount.backend.CashFlowRecordRepository;
 import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
 
-public class CashFlowTable extends JTable{
+public class CashFlowTable extends JTable {
 	private MyTableModel tableModel;
-	private SingleConsumptionRecordController controller;
-	
-	public CashFlowTable(SingleConsumptionRecordController controller) {
-		this.controller = controller;
-		
+	private CashFlowRecordRepository repo;
+
+	public CashFlowTable(CashFlowRecordRepository repo) {
+		this.repo = repo;
+
 		tableModel = new MyTableModel();
-		tableModel.setColumnIdentifiers(controller.getHeaders());
+		tableModel.setColumnIdentifiers(repo.getHeaders());
 		setModel(tableModel);
 	}
-	
-	private class MyTableModel extends DefaultTableModel{
+
+	private class MyTableModel extends DefaultTableModel {
 
 		@Override
 		public int getRowCount() {
-			return controller.getRows();
+			return repo.getRecordList().size();
 		}
 
 		@Override
 		public int getColumnCount() {
-			return controller.getCols();
+			return repo.getHeaders().length;
 		}
 
 		@Override
@@ -37,8 +38,28 @@ public class CashFlowTable extends JTable{
 
 		@Override
 		public Object getValueAt(int row, int column) {
-			return controller.getData(row+1, column+1);
+			String s = "";
+			CashFlowRecord c = repo.getRecordList().get(row);
+			
+			switch(column) {
+				case 0:
+					s = Integer.toString(c.getId());
+					break;
+				case 1:
+					s = Integer.toString(c.getAmount_of_money());
+					break;
+				case 2:
+					s = c.getDate();
+					break;
+				case 3:
+					s = Integer.toString(c.getCategory_id());
+					break;
+				case 4:
+					s = c.getDescription();
+					break;
+			}
+			return s;
 		}
-		
+
 	}
 }
