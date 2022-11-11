@@ -14,6 +14,7 @@ public class CashFlowTable extends JTable{
 		this.controller = controller;
 		
 		tableModel = new MyTableModel();
+		tableModel.setColumnIdentifiers(controller.getHeaders());
 		setModel(tableModel);
 	}
 	
