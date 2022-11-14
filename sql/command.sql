@@ -8,7 +8,7 @@ VALUES (100,'2022-11-01',1,''),
 (180,'2022-11-03',1,'');
 
 #join single_consumption_record and consumption_category
-select consumption.amount_of_money, consumption.date, consumption.description, cc.name
+select consumption.amount_of_money, consumption.date, consumption.description, cc.name as category
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id;

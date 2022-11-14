@@ -72,7 +72,7 @@ public class RecordDialog extends JDialog {
 		singleConsumptionRecord = new SingleConsumptionRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
 
 		for (int i = 0; i < cp.getCategories().length; i++) {
-			if (cp.getCategory().equals((String) cp.getCategories()[i]))
+			if (cp.getCategory().equals(cp.getCategories()[i]))
 				singleConsumptionRecord.setCategory_id(i + 1);
 		}
 
