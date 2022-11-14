@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="354564a8-30f4-410a-82a2-91908bf9ca14" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/frontend/CashFlowTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/frontend/CashFlowTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/frontend/MyApplicationFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/frontend/MyApplicationFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/frontend/RecordDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ericwang/jaccount/frontend/RecordDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

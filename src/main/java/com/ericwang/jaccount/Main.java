@@ -1,18 +1,20 @@
 package com.ericwang.jaccount;
 
 import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.backend.cc.ConsumptionCategory;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
 import com.ericwang.jaccount.frontend.MyApplicationFrame;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("Welcome to JAccountingManager!!");
 
-        SingleConsumptionRecordController singleConsumptionRecordController;
         ConsumptionCategoryController consumptionCategoryController;
         PrettyConsumptionRecordController prettyConsumptionRecordController;
         try {
@@ -26,19 +28,21 @@ public class Main {
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
 
-            singleConsumptionRecordController = myApplicationBackEnd.getRawRecordCon();
             consumptionCategoryController = myApplicationBackEnd.getConsumptionCategoryCon();
             prettyConsumptionRecordController = myApplicationBackEnd.getPrettyConsumptionRecordCon();
 
         } catch (Exception e) {
-            singleConsumptionRecordController = new SingleConsumptionRecordController();
             consumptionCategoryController = new ConsumptionCategoryController();
             prettyConsumptionRecordController = new PrettyConsumptionRecordController();
             e.printStackTrace();
         }
+        ArrayList<String> categories = new ArrayList<>();
+
+		for (ConsumptionCategory c : consumptionCategoryController.getRecordList())
+			categories.add(c.getName());
 
         @SuppressWarnings("unused")
         MyApplicationFrame myApplicationFrame =
-                new MyApplicationFrame(prettyConsumptionRecordController, consumptionCategoryController);
+                new MyApplicationFrame(prettyConsumptionRecordController, categories.toArray());
     }
 }

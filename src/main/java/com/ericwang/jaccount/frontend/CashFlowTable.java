@@ -26,11 +26,10 @@ public class CashFlowTable extends JTable {
 			PrettyConsumptionRecord c = controller.getRecordList().get(i);
 			tableModel.setValueAt(c.getAmountOfMoney(), i, 0);
 			tableModel.setValueAt(c.getDate(), i, 1);
-			tableModel.setValueAt(c.getDescription(), i, 2);
-			tableModel.setValueAt(c.getCategory(), i, 3);
+			tableModel.setValueAt(c.getCategory(), i, 2);
+			tableModel.setValueAt(c.getDescription(), i, 3);
 
 		}
-		
 	}
 
 	public void add() {

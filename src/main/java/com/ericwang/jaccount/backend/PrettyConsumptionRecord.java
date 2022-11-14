@@ -3,10 +3,10 @@ package com.ericwang.jaccount.backend;
 public class PrettyConsumptionRecord {
     private int amountOfMoney;
     private String date;
-    private String description;
     private String category;
+    private String description;
 
-    public PrettyConsumptionRecord(int amountOfMoney, String date, String description, String category) {
+    public PrettyConsumptionRecord(int amountOfMoney, String date, String category, String description) {
         this.amountOfMoney = amountOfMoney;
         this.date = date;
         this.description = description;

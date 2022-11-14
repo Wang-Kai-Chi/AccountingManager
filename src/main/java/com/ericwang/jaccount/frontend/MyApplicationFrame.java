@@ -19,7 +19,7 @@ public class MyApplicationFrame extends JFrame {
 	private RecordDialog dialog;
 	private PrettyConsumptionRecordController pcrc;
 
-	public MyApplicationFrame(PrettyConsumptionRecordController pcrc, ConsumptionCategoryController ccs) {
+	public MyApplicationFrame(PrettyConsumptionRecordController pcrc, Object[] categories) {
 		super("記帳本");
 		this.pcrc = pcrc;
 
@@ -33,20 +33,15 @@ public class MyApplicationFrame extends JFrame {
 		ManagePanel managePanel = new ManagePanel(this);
 		add(managePanel, BorderLayout.NORTH);
 
-		initDialog(ccs);
+		initDialog(categories);
 
 		setSize(800, 480);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	private void initDialog(ConsumptionCategoryController ccs) {
-		ArrayList<String> names = new ArrayList<>();
-
-		for (ConsumptionCategory c : ccs.getRecordList())
-			names.add(c.getName());
-
-		dialog = new RecordDialog(this, names.toArray());
+	private void initDialog(Object[] categories) {
+		dialog = new RecordDialog(this, categories);
 		dialog.setController(pcrc);
 	}
 
