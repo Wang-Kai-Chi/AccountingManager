@@ -24,6 +24,6 @@ public class ConsumptionCategory {
 
 	@Override
 	public String toString() {
-		return "ConsumptionCategory [id=" + id + ", name=" + name + "]";
+		return "ConsumptionCategory"+id +" [id=" + id + ", name=" + name + "]";
 	}
 }

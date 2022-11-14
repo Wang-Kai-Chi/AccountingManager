@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ConsumptionCategoryService {
 	private ArrayList<ConsumptionCategory> recordList;
 	private String[] headers;
+	private ConsumptionCategoryRepository repo;
 
 	public ConsumptionCategoryService() {
 		recordList = new ArrayList<>();
@@ -13,6 +14,11 @@ public class ConsumptionCategoryService {
 		addDefaultValue();
 	}
 	
+	public ConsumptionCategoryService(ConsumptionCategoryRepository repo) {
+		this();
+		this.repo = repo;
+	}
+
 	private void addDefaultValue() {
 		recordList.add(new ConsumptionCategory(1, "food"));
 		recordList.add(new ConsumptionCategory(2, "bill"));
@@ -20,6 +26,16 @@ public class ConsumptionCategoryService {
 		recordList.add(new ConsumptionCategory(4, "clothes"));
 		recordList.add(new ConsumptionCategory(5, "education"));
 		recordList.add(new ConsumptionCategory(6, "investment"));
+	}
+	
+	public void refresh() {
+		recordList.clear();
+
+		for (int i = 1; i < repo.getRows() + 1; i++) {
+			recordList.add(new ConsumptionCategory(Integer.parseInt(repo.getData(i, 1)), repo.getData(i, 2)));
+		}
+
+		headers = repo.getHeaders();
 	}
 
 	public ArrayList<ConsumptionCategory> getRecordList() {
