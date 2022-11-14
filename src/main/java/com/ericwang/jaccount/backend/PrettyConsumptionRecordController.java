@@ -51,7 +51,6 @@ public class PrettyConsumptionRecordController {
                 }
             }
         }
-
     }
 
     public SingleConsumptionRecord getConsumption(PrettyConsumptionRecord p, Object[] categories) {
@@ -59,10 +58,11 @@ public class PrettyConsumptionRecordController {
         s.setAmount_of_money(p.getAmountOfMoney());
         s.setDate(p.getDate());
         s.setCategory(p.getCategory());
+        s.setDescription(p.getDescription());
 
         for (int i = 0; i < categories.length; i++) {
             if (s.getCategory().equals(categories[i]))
-                s.setCategory_id(i);
+                s.setCategory_id(i+1);
         }
         return s;
     }

@@ -14,8 +14,6 @@ import javax.swing.JTextField;
 
 import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
-import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
-import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 
 public class RecordDialog extends JDialog {
 	private JButton acceptB;
@@ -51,17 +49,12 @@ public class RecordDialog extends JDialog {
 
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
+			addRecordToController();
 			setVisible(false);
-			
-			try {
-			writeRecord();
-			}catch (Exception e1) {
-				
-			}
 		});
 	}
 
-	private void writeRecord() {
+	private void addRecordToController() {
 		MoneyInput mi = (MoneyInput) jp.getComponent(0);
 		DatePicker dp = (DatePicker) jp.getComponent(1);
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
