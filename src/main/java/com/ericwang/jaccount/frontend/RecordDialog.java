@@ -12,14 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
+import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 
 public class RecordDialog extends JDialog {
 	private JButton acceptB;
-	private SingleConsumptionRecord singleConsumptionRecord;
+	private PrettyConsumptionRecord record;
 	private JPanel jp;
-	private SingleConsumptionRecordController singleConsumptionRecordController;
+	private PrettyConsumptionRecordController controller;
 	public RecordDialog(JFrame frame, Object[] categories) {
 		super(frame, "新增資料");
 
@@ -43,12 +45,8 @@ public class RecordDialog extends JDialog {
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
 
-	public void setSingleConsumptionRecordController(SingleConsumptionRecordController singleConsumptionRecordController) {
-		this.singleConsumptionRecordController = singleConsumptionRecordController;
-	}
-
-	public SingleConsumptionRecord getCashFlowRecord() {
-		return singleConsumptionRecord;
+	public void setController(PrettyConsumptionRecordController controller) {
+		this.controller = controller;
 	}
 
 	private void setActionListener() {
@@ -69,14 +67,9 @@ public class RecordDialog extends JDialog {
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
 		Description des = (Description) jp.getComponent(3);
 
-		singleConsumptionRecord = new SingleConsumptionRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
+		record = new PrettyConsumptionRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
 
-		for (int i = 0; i < cp.getCategories().length; i++) {
-			if (cp.getCategory().equals(cp.getCategories()[i]))
-				singleConsumptionRecord.setCategory_id(i + 1);
-		}
-
-		singleConsumptionRecordController.getRecordList().add(singleConsumptionRecord);
+		controller.getRecordList().add(record);
 
 		mi.init();
 		dp.init();

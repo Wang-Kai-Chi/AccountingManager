@@ -1,5 +1,6 @@
 package com.ericwang.jaccount;
 
+import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
@@ -13,6 +14,7 @@ public class Main {
 
         SingleConsumptionRecordController singleConsumptionRecordController;
         ConsumptionCategoryController consumptionCategoryController;
+        PrettyConsumptionRecordController prettyConsumptionRecordController;
         try {
             MySQLConnectionBuilder connectionBuilder = new MySQLConnectionBuilder("accounting_db01");
             MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(connectionBuilder.getConnection());
@@ -26,15 +28,17 @@ public class Main {
 
             singleConsumptionRecordController = myApplicationBackEnd.getRawRecordCon();
             consumptionCategoryController = myApplicationBackEnd.getConsumptionCategoryCon();
+            prettyConsumptionRecordController = myApplicationBackEnd.getPrettyConsumptionRecordCon();
 
         } catch (Exception e) {
             singleConsumptionRecordController = new SingleConsumptionRecordController();
             consumptionCategoryController = new ConsumptionCategoryController();
+            prettyConsumptionRecordController = new PrettyConsumptionRecordController();
             e.printStackTrace();
         }
 
         @SuppressWarnings("unused")
         MyApplicationFrame myApplicationFrame =
-                new MyApplicationFrame(singleConsumptionRecordController, consumptionCategoryController);
+                new MyApplicationFrame(prettyConsumptionRecordController, consumptionCategoryController);
     }
 }

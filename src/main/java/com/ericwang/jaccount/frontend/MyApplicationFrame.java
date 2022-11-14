@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategory;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
@@ -16,16 +17,16 @@ import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 public class MyApplicationFrame extends JFrame {
 	private CashFlowTable cashFlowTable;
 	private RecordDialog dialog;
-	private SingleConsumptionRecordController cfrs;
+	private PrettyConsumptionRecordController pcrc;
 
-	public MyApplicationFrame(SingleConsumptionRecordController cfrs, ConsumptionCategoryController ccs) {
+	public MyApplicationFrame(PrettyConsumptionRecordController pcrc, ConsumptionCategoryController ccs) {
 		super("記帳本");
-		this.cfrs = cfrs;
+		this.pcrc = pcrc;
 
 		setLayout(new BorderLayout());
 
 		cashFlowTable = new CashFlowTable();
-		cashFlowTable.initTable(cfrs);
+		cashFlowTable.initTable(pcrc);
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 
@@ -46,7 +47,7 @@ public class MyApplicationFrame extends JFrame {
 			names.add(c.getName());
 
 		dialog = new RecordDialog(this, names.toArray());
-		dialog.setSingleConsumptionRecordController(cfrs);
+		dialog.setController(pcrc);
 	}
 
 	private class ManagePanel extends JPanel {
@@ -71,9 +72,9 @@ public class MyApplicationFrame extends JFrame {
 			});
 			
 			refreshB.addActionListener(e -> {
-				cfrs.insertNewRecordIfIdIsZero();
-				cfrs.refresh();
-				cashFlowTable.initTable(cfrs);
+				//pcrc.insertNewRecordIfIdIsZero();
+				pcrc.refresh();
+				cashFlowTable.initTable(pcrc);
 			});
 		}
 	}
