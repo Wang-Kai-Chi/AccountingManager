@@ -14,15 +14,16 @@ public class CashFlowTable extends JTable {
 		this.service = service;
 
 		tableModel = new MyTableModel();
-		tableModel.setColumnIdentifiers(service.getHeaders());
-		tableModel.setRowCount(service.getRecordList().size());
-		tableModel.setColumnCount(service.getHeaders().length);
 		initTable();
 		
 		setModel(tableModel);
 	}
 	
 	public void initTable() {
+		tableModel.setColumnIdentifiers(service.getHeaders());
+		tableModel.setRowCount(service.getRecordList().size());
+		tableModel.setColumnCount(service.getHeaders().length);
+		
 		for (int i = 0; i < service.getRecordList().size(); i++) {
 			CashFlowRecord c = service.getRecordList().get(i);
 			tableModel.setValueAt(c.getId(), i, 0);

@@ -15,7 +15,7 @@ public class Main {
         ConsumptionCategoryService service2;
         try {
         	MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(
-                    new MySQLConnectionBuilder("xx"));
+                    new MySQLConnectionBuilder("accounting_db01"));
             
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
