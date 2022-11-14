@@ -34,7 +34,7 @@ public class AddingRecordDialog extends JDialog {
 		jp.add(new TypePicker());
 		jp.add(new MoneyInput());
 		jp.add(new CategoryPicker(categories));
-		setupDatePicker(jp);
+		jp.add(new DatePicker());
 	    
 		add(jp,BorderLayout.NORTH);
 		
@@ -44,21 +44,6 @@ public class AddingRecordDialog extends JDialog {
 		setActionListener();
 		setSize(500, 300);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
-	}
-	
-	private void setupDatePicker(JPanel jp) {
-		UtilDateModel model = new UtilDateModel();
-		//model.setDate(20,04,2014);
-		// Need this...
-		Properties p = new Properties();
-		p.put("text.today", "Today");
-		p.put("text.month", "Month");
-		p.put("text.year", "Year");
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		// Don't know about the formatter, but there it is...
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		jp.add(datePicker);
-		
 	}
 	
 	private void setActionListener() {
@@ -81,6 +66,10 @@ public class AddingRecordDialog extends JDialog {
 
 			add(dropDownList);
 		}
+		
+		public String getType() {
+			return (String) dropDownList.getSelectedItem();
+		}
 	}
 	
 	private class MoneyInput extends JPanel {
@@ -97,6 +86,10 @@ public class AddingRecordDialog extends JDialog {
 			textF.setColumns(15);
 			add(textF);
 		}
+		
+		public int getMoney() {
+			return Integer.parseInt(textF.getText());
+		}
 	}
 	
 	private class CategoryPicker extends JPanel {
@@ -112,27 +105,56 @@ public class AddingRecordDialog extends JDialog {
 			dropDownList = new JComboBox<>(categories);
 			add(dropDownList);
 		}
+		
+		public String getCategory() {
+			return (String) dropDownList.getSelectedItem();
+		}
 	}
 	
-	public class DateLabelFormatter extends AbstractFormatter {
-
-	    private String datePattern = "yyyy-MM-dd";
-	    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
-
-	    @Override
-	    public Object stringToValue(String text) throws ParseException {
-	        return dateFormatter.parseObject(text);
-	    }
-
-	    @Override
-	    public String valueToString(Object value) throws ParseException {
-	        if (value != null) {
-	            Calendar cal = (Calendar) value;
-	            return dateFormatter.format(cal.getTime());
-	        }
-
-	        return "";
-	    }
-
+	private class DatePicker extends JPanel{
+		JLabel label01;
+		
+		public DatePicker() {
+			super(new FlowLayout());
+			
+			label01 = new JLabel("日期");
+			
+			UtilDateModel model = new UtilDateModel();
+			//model.setDate(20,04,2014);
+			// Need this...
+			Properties p = new Properties();
+			p.put("text.today", "Today");
+			p.put("text.month", "Month");
+			p.put("text.year", "Year");
+			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+			// Don't know about the formatter, but there it is...
+			JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+			
+			add(label01);
+			add(datePicker);
+		}
+		
+		private class DateLabelFormatter extends AbstractFormatter {
+			
+			private String datePattern = "yyyy-MM-dd";
+			private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+			
+			@Override
+			public Object stringToValue(String text) throws ParseException {
+				return dateFormatter.parseObject(text);
+			}
+			
+			@Override
+			public String valueToString(Object value) throws ParseException {
+				if (value != null) {
+					Calendar cal = (Calendar) value;
+					return dateFormatter.format(cal.getTime());
+				}
+				
+				return "";
+			}
+			
+		}
 	}
+	
 }
