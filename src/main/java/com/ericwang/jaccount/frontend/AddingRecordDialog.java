@@ -24,7 +24,7 @@ import org.jdatepicker.impl.UtilDateModel;
 public class AddingRecordDialog extends JDialog {
 	private JButton acceptB;
 
-	public AddingRecordDialog(JFrame frame) {
+	public AddingRecordDialog(JFrame frame, Object[] categories) {
 		super(frame, "新增資料");
 
 		setLayout(new BorderLayout());
@@ -33,7 +33,7 @@ public class AddingRecordDialog extends JDialog {
 		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
 		jp.add(new TypePicker());
 		jp.add(new MoneyInput());
-		jp.add(new CategoryPicker());
+		jp.add(new CategoryPicker(categories));
 		setupDatePicker(jp);
 	    
 		add(jp,BorderLayout.NORTH);
@@ -101,16 +101,15 @@ public class AddingRecordDialog extends JDialog {
 	
 	private class CategoryPicker extends JPanel {
 		JLabel label01;
-		JComboBox<String> dropDownList;
+		JComboBox<Object> dropDownList;
 
-		public CategoryPicker(){
+		public CategoryPicker(Object[] categories){
 			super(new FlowLayout());
 
 			label01 = new JLabel("類別");
 			add(label01);
 
-			String[] cate = new String[] {"food", "transportation", "bill", "clothes"};
-			dropDownList = new JComboBox<>(cate);
+			dropDownList = new JComboBox<>(categories);
 			add(dropDownList);
 		}
 	}

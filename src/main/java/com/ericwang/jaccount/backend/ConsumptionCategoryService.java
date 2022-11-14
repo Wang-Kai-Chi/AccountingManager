@@ -23,9 +23,6 @@ public class ConsumptionCategoryService {
 		recordList.add(new ConsumptionCategory(1, "food"));
 		recordList.add(new ConsumptionCategory(2, "bill"));
 		recordList.add(new ConsumptionCategory(3, "transportation"));
-		recordList.add(new ConsumptionCategory(4, "clothes"));
-		recordList.add(new ConsumptionCategory(5, "education"));
-		recordList.add(new ConsumptionCategory(6, "investment"));
 	}
 	
 	public void refresh() {

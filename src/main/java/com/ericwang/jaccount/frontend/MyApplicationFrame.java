@@ -2,6 +2,8 @@ package com.ericwang.jaccount.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,54 +11,57 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.ericwang.jaccount.backend.CashFlowRecordService;
+import com.ericwang.jaccount.backend.ConsumptionCategory;
+import com.ericwang.jaccount.backend.ConsumptionCategoryService;
+import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 
 public class MyApplicationFrame extends JFrame {
 	private CashFlowTable cashFlowTable;
-	private CashFlowRecordService service;
 	private AddingRecordDialog dialog;
 
-	public MyApplicationFrame(CashFlowRecordService service) {
+	public MyApplicationFrame(CashFlowRecordService cfrs, ConsumptionCategoryService ccs) {
 		super("記帳本");
-
-		this.service = service;
 
 		setLayout(new BorderLayout());
 
-		cashFlowTable = new CashFlowTable(service);
+		cashFlowTable = new CashFlowTable(cfrs);
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 
 		ManagePanel managePanel = new ManagePanel(this);
 		add(managePanel, BorderLayout.NORTH);
 
-		dialog = new AddingRecordDialog(this);
-
+		initDialog(ccs);
+		
 		setSize(800, 480);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
+	
+	private void initDialog(ConsumptionCategoryService ccs) {
+		ArrayList<String> names = new ArrayList<>();
+		
+		for(ConsumptionCategory c:ccs.getRecordList())
+			names.add(c.getName());
+		
+		dialog = new AddingRecordDialog(this, names.toArray());		
+	}
 
 	private class ManagePanel extends JPanel {
-		private JButton addButton, refreshButton;
+		private JButton addButton;
 
 		public ManagePanel(JFrame frame) {
 			super(new FlowLayout());
 
 			addButton = new JButton("新增");
-			refreshButton = new JButton("刷新");
+			
 			add(addButton);
-			add(refreshButton);
 
 			setActionListeners(frame);
 		}
 
 		private void setActionListeners(JFrame frame) {
 			addButton.addActionListener(e -> dialog.setVisible(true));
-
-			refreshButton.addActionListener(e -> {
-				service.refresh();
-				repaint();
-			});
 		}
 	}
 }

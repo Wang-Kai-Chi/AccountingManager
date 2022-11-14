@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MyApplicationBackEnd {
-	private final CashFlowRecordService cfService;
+	private final CashFlowRecordService cashFlowRecordService;
 	private final SingleConsumptionRecordRepository repo;
-	private ConsumptionCategoryService ccService;
+	private ConsumptionCategoryService consumptionCategoryService;
 	private ConsumptionCategoryRepository repo2;
 
 	public MyApplicationBackEnd(MySQLConnectionBuilder mySQLConnectionBuilder) {
@@ -17,20 +17,21 @@ public class MyApplicationBackEnd {
 		
 		start(mySQLConnectionBuilder.getConnection());
 
-		cfService = new CashFlowRecordService(repo);
+		cashFlowRecordService = new CashFlowRecordService(repo);
 
-		ccService = new ConsumptionCategoryService(repo2);
+		consumptionCategoryService = new ConsumptionCategoryService(repo2);
 	}
 
 	public void refresh() {
-		cfService.refresh();
+		cashFlowRecordService.refresh();
+		consumptionCategoryService.refresh();
 	}
 
 	public void printData() {
-		for (CashFlowRecord c : cfService.getRecordList())
+		for (CashFlowRecord c : cashFlowRecordService.getRecordList())
 			System.out.println(c);
 
-		for (ConsumptionCategory c : ccService.getRecordList())
+		for (ConsumptionCategory c : consumptionCategoryService.getRecordList())
 			System.out.println(c);
 	}
 	
@@ -55,10 +56,12 @@ public class MyApplicationBackEnd {
 	}
 
 	public CashFlowRecordService getCashFlowRecordService() {
-		return cfService;
+		return cashFlowRecordService;
 	}
 
-	public SingleConsumptionRecordRepository getRepo() {
-		return repo;
+	public ConsumptionCategoryService getConsumptionCategoryService() {
+		return consumptionCategoryService;
 	}
+	
+	
 }

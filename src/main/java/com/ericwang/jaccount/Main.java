@@ -1,6 +1,8 @@
 package com.ericwang.jaccount;
 
 import com.ericwang.jaccount.backend.CashFlowRecordService;
+import com.ericwang.jaccount.backend.ConsumptionCategory;
+import com.ericwang.jaccount.backend.ConsumptionCategoryService;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
 import com.ericwang.jaccount.frontend.MyApplicationFrame;
@@ -11,20 +13,23 @@ public class Main {
         System.out.println("Welcome to JAccountingManager!!");
 
         CashFlowRecordService service;
+        ConsumptionCategoryService service2;
         try {
-            MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(
+        	MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(
                     new MySQLConnectionBuilder("accounting_db01"));
             
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
             
             service = myApplicationBackEnd.getCashFlowRecordService();
+            service2 = myApplicationBackEnd.getConsumptionCategoryService();
             
         } catch (Exception e) {
         	service = new CashFlowRecordService();
+        	service2 = new ConsumptionCategoryService();
             e.printStackTrace();
         }
         
-        MyApplicationFrame myApplicationFrame = new MyApplicationFrame(service);
+        MyApplicationFrame myApplicationFrame = new MyApplicationFrame(service, service2);
     }
 }
