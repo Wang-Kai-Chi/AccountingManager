@@ -1,6 +1,6 @@
 package com.ericwang.jaccount;
 
-import com.ericwang.jaccount.backend.CashFlowRecordRepository;
+import com.ericwang.jaccount.backend.CashFlowRecordService;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
 import com.ericwang.jaccount.frontend.MyApplicationFrame;
@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to JAccountingManager!!");
 
-        CashFlowRecordRepository repo;
+        CashFlowRecordService service;
         try {
             MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(
                     new MySQLConnectionBuilder("accounting_db01"));
@@ -18,13 +18,13 @@ public class Main {
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
             
-            repo = myApplicationBackEnd.getCashFlowRecordRepository();
+            service = myApplicationBackEnd.getCashFlowRecordService();
             
         } catch (Exception e) {
-        	repo = new CashFlowRecordRepository();
+        	service = new CashFlowRecordService();
             e.printStackTrace();
         }
         
-        MyApplicationFrame myApplicationFrame = new MyApplicationFrame(repo);
+        MyApplicationFrame myApplicationFrame = new MyApplicationFrame(service);
     }
 }

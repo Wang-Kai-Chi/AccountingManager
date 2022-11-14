@@ -4,18 +4,17 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.ericwang.jaccount.backend.CashFlowRecord;
-import com.ericwang.jaccount.backend.CashFlowRecordRepository;
-import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
+import com.ericwang.jaccount.backend.CashFlowRecordService;
 
 public class CashFlowTable extends JTable {
 	private MyTableModel tableModel;
-	private CashFlowRecordRepository repo;
+	private CashFlowRecordService service;
 
-	public CashFlowTable(CashFlowRecordRepository repo) {
-		this.repo = repo;
+	public CashFlowTable(CashFlowRecordService service) {
+		this.service = service;
 
 		tableModel = new MyTableModel();
-		tableModel.setColumnIdentifiers(repo.getHeaders());
+		tableModel.setColumnIdentifiers(service.getHeaders());
 		setModel(tableModel);
 	}
 
@@ -23,12 +22,12 @@ public class CashFlowTable extends JTable {
 
 		@Override
 		public int getRowCount() {
-			return repo.getRecordList().size();
+			return service.getRecordList().size();
 		}
 
 		@Override
 		public int getColumnCount() {
-			return repo.getHeaders().length;
+			return service.getHeaders().length;
 		}
 
 		@Override
@@ -39,7 +38,7 @@ public class CashFlowTable extends JTable {
 		@Override
 		public Object getValueAt(int row, int column) {
 			String s = "";
-			CashFlowRecord c = repo.getRecordList().get(row);
+			CashFlowRecord c = service.getRecordList().get(row);
 			
 			switch(column) {
 				case 0:

@@ -2,7 +2,7 @@ package com.ericwang.jaccount.backend;
 
 import java.sql.*;
 
-public class SingleConsumptionRecordController {
+public class SingleConsumptionRecordRepository {
     private ResultSet resultSet;
     private TableHeaders tableHeaders;
 

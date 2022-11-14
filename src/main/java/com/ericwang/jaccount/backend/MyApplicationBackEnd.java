@@ -4,48 +4,48 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MyApplicationBackEnd {
-	private final CashFlowRecordRepository cashFlowRecordRepository;
-	private final SingleConsumptionRecordController controller;
+	private final CashFlowRecordService service;
+	private final SingleConsumptionRecordRepository repo;
 
 	public MyApplicationBackEnd(MySQLConnectionBuilder mySQLConnectionBuilder) {
 		System.out.println("connection start");
 
-		controller = new SingleConsumptionRecordController();
-		ApplicationActor applicationActor = new ApplicationActor(controller);
+		repo = new SingleConsumptionRecordRepository();
+		ApplicationActor applicationActor = new ApplicationActor(repo);
 		applicationActor.start(mySQLConnectionBuilder.getConnection());
 
-		cashFlowRecordRepository = new CashFlowRecordRepository(applicationActor.getController());
+		service = new CashFlowRecordService(applicationActor.getRepo());
 	}
 	
 	public void refresh() {
-		cashFlowRecordRepository.refresh();		
+		service.refresh();		
 	}
 
 	public void printData() {
-		for (CashFlowRecord c : cashFlowRecordRepository.getRecordList())
+		for (CashFlowRecord c : service.getRecordList())
 			System.out.println(c);
 	}
 
-	public CashFlowRecordRepository getCashFlowRecordRepository() {
-		return cashFlowRecordRepository;
+	public CashFlowRecordService getCashFlowRecordService() {
+		return service;
 	}
 
-	public SingleConsumptionRecordController getController() {
-		return controller;
+	public SingleConsumptionRecordRepository getRepo() {
+		return repo;
 	}
 
 	private static class ApplicationActor {
-		private final SingleConsumptionRecordController controller;
+		private final SingleConsumptionRecordRepository repo;
 
-		public ApplicationActor(SingleConsumptionRecordController controller) {
-			this.controller = controller;
+		public ApplicationActor(SingleConsumptionRecordRepository repo) {
+			this.repo = repo;
 		}
 
 		public void start(Connection connection) {
 			String sql = "SELECT * FROM single_consumption_record";
 			try {
 				System.out.println("Query command: " + sql);
-				controller.query(sql, connection);
+				repo.query(sql, connection);
 				// controller.add();
 
 //            controller.update(controller.getRows(), controller.getHeaders()[1], "John");
@@ -55,8 +55,8 @@ public class MyApplicationBackEnd {
 			}
 		}
 
-		public SingleConsumptionRecordController getController() {
-			return controller;
+		public SingleConsumptionRecordRepository getRepo() {
+			return repo;
 		}
 	}
 }

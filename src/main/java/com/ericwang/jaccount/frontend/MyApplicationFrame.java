@@ -8,21 +8,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.ericwang.jaccount.backend.CashFlowRecordRepository;
+import com.ericwang.jaccount.backend.CashFlowRecordService;
 
 public class MyApplicationFrame extends JFrame {
 	private CashFlowTable cashFlowTable;
-	private CashFlowRecordRepository repo;
+	private CashFlowRecordService service;
 	private AddingRecordDialog dialog;
 
-	public MyApplicationFrame(CashFlowRecordRepository repo) {
+	public MyApplicationFrame(CashFlowRecordService service) {
 		super("記帳本");
 
-		this.repo = repo;
+		this.service = service;
 
 		setLayout(new BorderLayout());
 
-		cashFlowTable = new CashFlowTable(repo);
+		cashFlowTable = new CashFlowTable(service);
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 
@@ -54,7 +54,7 @@ public class MyApplicationFrame extends JFrame {
 			addButton.addActionListener(e -> dialog.setVisible(true));
 
 			refreshButton.addActionListener(e -> {
-				repo.refresh();
+				service.refresh();
 				repaint();
 			});
 		}

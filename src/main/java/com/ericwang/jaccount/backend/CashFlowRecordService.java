@@ -2,12 +2,12 @@ package com.ericwang.jaccount.backend;
 
 import java.util.ArrayList;
 
-public class CashFlowRecordRepository {
+public class CashFlowRecordService {
 	private ArrayList<CashFlowRecord> recordList;
-	private SingleConsumptionRecordController controller;
+	private SingleConsumptionRecordRepository repo;
 	private String[] headers;
 
-	public CashFlowRecordRepository() {
+	public CashFlowRecordService() {
 		recordList = new ArrayList<>();
 
 		addDefaultValues();
@@ -17,9 +17,9 @@ public class CashFlowRecordRepository {
 		};
 	}
 
-	public CashFlowRecordRepository(SingleConsumptionRecordController dbController) {
+	public CashFlowRecordService(SingleConsumptionRecordRepository repo) {
 		this();
-		controller = dbController;
+		this.repo = repo;
 	}
 	
 	private void addDefaultValues() {
@@ -35,13 +35,13 @@ public class CashFlowRecordRepository {
 	public void refresh() {
 		recordList.clear();
 
-		for (int i = 1; i < controller.getRows() + 1; i++) {
-			recordList.add(new CashFlowRecord(Integer.parseInt(controller.getData(i, 1)),
-					Integer.parseInt(controller.getData(i, 2)), controller.getData(i, 3),
-					Integer.parseInt(controller.getData(i, 4)), controller.getData(i, 5)));
+		for (int i = 1; i < repo.getRows() + 1; i++) {
+			recordList.add(new CashFlowRecord(Integer.parseInt(repo.getData(i, 1)),
+					Integer.parseInt(repo.getData(i, 2)), repo.getData(i, 3),
+					Integer.parseInt(repo.getData(i, 4)), repo.getData(i, 5)));
 		}
 
-		headers = controller.getHeaders();
+		headers = repo.getHeaders();
 	}
 
 	public ArrayList<CashFlowRecord> getRecordList() {
