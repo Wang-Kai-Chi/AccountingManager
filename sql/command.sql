@@ -12,3 +12,9 @@ select consumption.amount_of_money, consumption.date, consumption.description, c
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
+
+#
+select consumption.*, cc.name as category
+from single_consumption_record as consumption
+join consumption_category as cc
+on consumption.category_id = cc.id

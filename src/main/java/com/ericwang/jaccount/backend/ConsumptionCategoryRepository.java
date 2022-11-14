@@ -1,9 +1,12 @@
 package com.ericwang.jaccount.backend;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class SingleConsumptionRecordRepository {
-    private ResultSet resultSet;
+public class ConsumptionCategoryRepository {
+	private ResultSet resultSet;
     private TableHeaders tableHeaders;
 
     public void query(String sql, Connection connection) throws SQLException {
@@ -14,33 +17,7 @@ public class SingleConsumptionRecordRepository {
 
         tableHeaders = new TableHeaders(resultSet.getMetaData());
     }
-
-    public void add() {
-        try {
-            resultSet.moveToInsertRow();
-            String[] headers = tableHeaders.getHeaders();
-            resultSet.updateInt(headers[1], 100);
-            resultSet.updateString(headers[2], "2022-11-05");
-            resultSet.updateInt(headers[3], 1);
-            resultSet.updateString(headers[4], "");
-            resultSet.insertRow();
-            System.out.println("insert a new row");
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public void update(int row, String header, String data) {
-		try {
-			resultSet.absolute(row);
-			resultSet.updateString(header, data);
-			resultSet.updateRow();
-		} catch (SQLException e) {
-			System.out.printf("%d : %s :%s\n", row, header, e);
-		}
-	}
-
+    
     public int getRows() {
         try {
             resultSet.last();

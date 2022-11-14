@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MyApplicationBackEnd {
-	private final CashFlowRecordService service;
+	private final CashFlowRecordService cfService;
 	private final SingleConsumptionRecordRepository repo;
+	private ConsumptionCategoryService ccService;
 
 	public MyApplicationBackEnd(MySQLConnectionBuilder mySQLConnectionBuilder) {
 		System.out.println("connection start");
@@ -14,20 +15,25 @@ public class MyApplicationBackEnd {
 		ApplicationActor applicationActor = new ApplicationActor(repo);
 		applicationActor.start(mySQLConnectionBuilder.getConnection());
 
-		service = new CashFlowRecordService(applicationActor.getRepo());
+		cfService = new CashFlowRecordService(applicationActor.getRepo());
+		
+		ccService = new ConsumptionCategoryService();
 	}
 	
 	public void refresh() {
-		service.refresh();		
+		cfService.refresh();		
 	}
 
 	public void printData() {
-		for (CashFlowRecord c : service.getRecordList())
+		for (CashFlowRecord c : cfService.getRecordList())
+			System.out.println(c);
+		
+		for(ConsumptionCategory c:ccService.getRecordList())
 			System.out.println(c);
 	}
 
 	public CashFlowRecordService getCashFlowRecordService() {
-		return service;
+		return cfService;
 	}
 
 	public SingleConsumptionRecordRepository getRepo() {
@@ -42,7 +48,10 @@ public class MyApplicationBackEnd {
 		}
 
 		public void start(Connection connection) {
-			String sql = "SELECT * FROM single_consumption_record";
+			String sql = "select consumption.*, cc.name as category\r\n"
+					+ "from single_consumption_record as consumption\r\n"
+					+ "join consumption_category as cc\r\n"
+					+ "on consumption.category_id = cc.id";
 			try {
 				System.out.println("Query command: " + sql);
 				repo.query(sql, connection);

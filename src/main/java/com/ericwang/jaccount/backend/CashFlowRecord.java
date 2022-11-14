@@ -5,17 +5,20 @@ public class CashFlowRecord {
 	private int amount_of_money;
 	private String date;
 	private int category_id;
+	private String category;
 	private String description;
 
 	public CashFlowRecord(int id) {
 		this.id = id;
 	}
 
-	public CashFlowRecord(int id, int amount_of_money, String date, int category_id, String description) {
+	public CashFlowRecord(int id, int amount_of_money, String date, int category_id,
+			String description, String category) {
 		this.id = id;
 		this.amount_of_money = amount_of_money;
 		this.date = date;
 		this.category_id = category_id;
+		this.category = category;
 		this.description = description;
 	}
 
@@ -54,11 +57,21 @@ public class CashFlowRecord {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	@Override
 	public String toString() {
 		return "CashFlowRecord" + id + "[amount_of_money=" + amount_of_money + ", date=" + date + ", category_id="
-				+ category_id + ", description=" + description + "]";
+				+ category_id +", category ="+category +", description=" + description + "]";
 	}
 
 }

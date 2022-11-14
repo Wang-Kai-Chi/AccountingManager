@@ -56,6 +56,9 @@ public class CashFlowTable extends JTable {
 				case 4:
 					s = c.getDescription();
 					break;
+				case 5:
+					s = c.getCategory();
+					break;
 			}
 			return s;
 		}
