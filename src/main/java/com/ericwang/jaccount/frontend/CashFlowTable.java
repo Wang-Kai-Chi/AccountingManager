@@ -15,52 +15,34 @@ public class CashFlowTable extends JTable {
 
 		tableModel = new MyTableModel();
 		tableModel.setColumnIdentifiers(service.getHeaders());
+		tableModel.setRowCount(service.getRecordList().size());
+		tableModel.setColumnCount(service.getHeaders().length);
+		initTable();
+		
 		setModel(tableModel);
+	}
+	
+	public void initTable() {
+		for (int i = 0; i < service.getRecordList().size(); i++) {
+			CashFlowRecord c = service.getRecordList().get(i);
+			tableModel.setValueAt(c.getId(), i, 0);
+			tableModel.setValueAt(c.getAmount_of_money(), i, 1);
+			tableModel.setValueAt(c.getDate(), i, 2);
+			tableModel.setValueAt(c.getCategory_id(), i, 3);
+			tableModel.setValueAt(c.getDescription(), i, 4);
+		}
+		
+	}
+
+	public void add() {
+		tableModel.addRow(new Object[2]);
 	}
 
 	private class MyTableModel extends DefaultTableModel {
 
 		@Override
-		public int getRowCount() {
-			return service.getRecordList().size();
-		}
-
-		@Override
-		public int getColumnCount() {
-			return service.getHeaders().length;
-		}
-
-		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
-		}
-
-		@Override
-		public Object getValueAt(int row, int column) {
-			String s = "";
-			CashFlowRecord c = service.getRecordList().get(row);
-			
-			switch(column) {
-				case 0:
-					s = Integer.toString(c.getId());
-					break;
-				case 1:
-					s = Integer.toString(c.getAmount_of_money());
-					break;
-				case 2:
-					s = c.getDate();
-					break;
-				case 3:
-					s = Integer.toString(c.getCategory_id());
-					break;
-				case 4:
-					s = c.getDescription();
-					break;
-				case 5:
-					s = c.getCategory();
-					break;
-			}
-			return s;
 		}
 
 	}

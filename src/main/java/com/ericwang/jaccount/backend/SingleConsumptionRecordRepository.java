@@ -17,12 +17,12 @@ public class SingleConsumptionRecordRepository {
 
     public void add(CashFlowRecord cfr) {
         try {
-            resultSet.moveToInsertRow();;
+            resultSet.moveToInsertRow();
             String[] headers = tableHeaders.getHeaders();
-            resultSet.updateInt(headers[2], cfr.getAmount_of_money());
-            resultSet.updateString(headers[3], cfr.getDate());
-            resultSet.updateInt(headers[4], cfr.getCategory_id());
-            resultSet.updateString(headers[5], cfr.getDescription());
+            resultSet.updateInt(headers[1], cfr.getAmount_of_money());
+            resultSet.updateString(headers[2], cfr.getDate());
+            resultSet.updateInt(headers[3], cfr.getCategory_id());
+            resultSet.updateString(headers[4], cfr.getDescription());
             resultSet.insertRow();
             System.out.println("insert a new row");
         } catch (SQLException e) {

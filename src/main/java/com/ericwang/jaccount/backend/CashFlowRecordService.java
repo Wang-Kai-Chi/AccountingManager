@@ -13,7 +13,7 @@ public class CashFlowRecordService {
 		addDefaultValues();
 		
 		headers = new String[] {
-				"id", "money", "date", "category_id", "description","category"
+				"id", "money", "date", "category_id", "description"
 		};
 	}
 
@@ -33,23 +33,26 @@ public class CashFlowRecordService {
 	}
 
 	public void refresh() {
-		recordList.clear();
-
-		for (int i = 1; i < repo.getRows() + 1; i++) {
-			recordList.add(new CashFlowRecord(Integer.parseInt(repo.getData(i, 1)),
-					Integer.parseInt(repo.getData(i, 2)), repo.getData(i, 3),
-					Integer.parseInt(repo.getData(i, 4)), repo.getData(i, 5),repo.getData(i, 6)));
+		if (repo!=null) {
+			recordList.clear();
+			
+			for (int i = 1; i < repo.getRows() + 1; i++) {
+				recordList.add(new CashFlowRecord(Integer.parseInt(repo.getData(i, 1)),
+						Integer.parseInt(repo.getData(i, 2)), repo.getData(i, 3),
+						Integer.parseInt(repo.getData(i, 4)), repo.getData(i, 5),repo.getData(i, 6)));
+			}			
+			headers = repo.getHeaders();
 		}
-
-		headers = repo.getHeaders();
 	}
 	
 	public void insertNewRecordIfIdIsZero() {
-		for(CashFlowRecord c:recordList) {
-			if(c.getId() == 0) {
-				repo.add(c);
-				System.out.println(c);
-			}
+		if(repo!=null) {
+			for(CashFlowRecord c:recordList) {
+				if(c.getId() == 0) {
+					repo.add(c);
+					System.out.println(c);
+				}
+			}			
 		}
 		
 	}

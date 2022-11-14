@@ -52,25 +52,29 @@ public class MyApplicationFrame extends JFrame {
 
 	private class ManagePanel extends JPanel {
 		private JButton addB, refreshB;
-
+		
 		public ManagePanel(JFrame frame) {
 			super(new FlowLayout());
-
+			
 			addB = new JButton("新增");
 			refreshB = new JButton("刷新");
 
 			add(addB);
 			add(refreshB);
 
-			setActionListeners(frame);
+			setActionListeners();
 		}
 
-		private void setActionListeners(JFrame frame) {
-			addB.addActionListener(e -> dialog.setVisible(true));
+		private void setActionListeners() {
+			addB.addActionListener(e -> {
+				dialog.setVisible(true);
+				cashFlowTable.add();
+			});
 			
 			refreshB.addActionListener(e -> {
 				cfrs.insertNewRecordIfIdIsZero();
 				cfrs.refresh();
+				cashFlowTable.initTable();
 			});
 		}
 	}

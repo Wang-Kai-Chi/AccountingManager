@@ -36,9 +36,7 @@ public class MyApplicationBackEnd {
 	}
 	
 	private void start(Connection connection) {
-		String sql = "select consumption.*, cc.name as category\r\n"
-				+ "from single_consumption_record as consumption\r\n" + "join consumption_category as cc\r\n"
-				+ "on consumption.category_id = cc.id";
+		String sql = "select * from single_consumption_record";
 		
 		String sql2 = "SELECT * FROM `consumption_category`";
 		try {
