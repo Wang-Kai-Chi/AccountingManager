@@ -15,14 +15,14 @@ public class SingleConsumptionRecordRepository {
         tableHeaders = new TableHeaders(resultSet.getMetaData());
     }
 
-    public void add() {
+    public void add(CashFlowRecord cfr) {
         try {
-            resultSet.moveToInsertRow();
+            resultSet.moveToInsertRow();;
             String[] headers = tableHeaders.getHeaders();
-            resultSet.updateInt(headers[1], 100);
-            resultSet.updateString(headers[2], "2022-11-05");
-            resultSet.updateInt(headers[3], 1);
-            resultSet.updateString(headers[4], "");
+            resultSet.updateInt(headers[2], cfr.getAmount_of_money());
+            resultSet.updateString(headers[3], cfr.getDate());
+            resultSet.updateInt(headers[4], cfr.getCategory_id());
+            resultSet.updateString(headers[5], cfr.getDescription());
             resultSet.insertRow();
             System.out.println("insert a new row");
         } catch (SQLException e) {

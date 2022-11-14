@@ -11,10 +11,13 @@ VALUES (100,'2022-11-01',1,''),
 select consumption.amount_of_money, consumption.date, consumption.description, cc.name
 from single_consumption_record as consumption
 join consumption_category as cc
-on consumption.category_id = cc.id
+on consumption.category_id = cc.id;
 
 #
 select consumption.*, cc.name as category
 from single_consumption_record as consumption
 join consumption_category as cc
-on consumption.category_id = cc.id
+on consumption.category_id = cc.id;
+
+#select between now and specific date
+SELECT * FROM `single_consumption_record` WHERE date>"2022-11-03" and date<now();

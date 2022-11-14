@@ -1,8 +1,9 @@
 package com.ericwang.jaccount.frontend;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
+import java.util.Iterator;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,12 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.ericwang.jaccount.backend.CashFlowRecord;
+import com.ericwang.jaccount.backend.CashFlowRecordService;
 
 public class AddingRecordDialog extends JDialog {
 	private JButton acceptB;
 	private CashFlowRecord cashFlowRecord;
 	private JPanel jp;
-
+	private CashFlowRecordService cashFlowRecordService;
 	public AddingRecordDialog(JFrame frame, Object[] categories) {
 		super(frame, "新增資料");
 
@@ -42,6 +44,10 @@ public class AddingRecordDialog extends JDialog {
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
 
+	public void setCashFlowRecordService(CashFlowRecordService cashFlowRecordService) {
+		this.cashFlowRecordService = cashFlowRecordService;
+	}
+
 	public CashFlowRecord getCashFlowRecord() {
 		return cashFlowRecord;
 	}
@@ -57,11 +63,21 @@ public class AddingRecordDialog extends JDialog {
 		MoneyInput mi = (MoneyInput) jp.getComponent(1);
 		DatePicker dp = (DatePicker) jp.getComponent(2);
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(3);
-		Description des = (Description)jp.getComponent(4);
-		
-		cashFlowRecord = new CashFlowRecord(mi.getMoney(), dp.getDate(),cp.getCategory(),des.getString());
-		
+		Description des = (Description) jp.getComponent(4);
+
+		cashFlowRecord = new CashFlowRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
+
+		for (int i = 0; i < cp.getCategories().length; i++) {
+			if (cp.getCategory().equals((String) cp.getCategories()[i]))
+				cashFlowRecord.setCategory_id(i + 1);
+		}
+
+		cashFlowRecordService.getRecordList().add(cashFlowRecord);
+
 		System.out.println(cashFlowRecord);
+		
+		for(CashFlowRecord c:cashFlowRecordService.getRecordList())
+			System.out.println(c);
 	}
 
 	private class TypePicker extends JPanel {
@@ -109,6 +125,7 @@ public class AddingRecordDialog extends JDialog {
 	private class CategoryPicker extends JPanel {
 		JLabel label01;
 		JComboBox<Object> dropDownList;
+		Object[] categories;
 
 		public CategoryPicker(Object[] categories) {
 			super(new FlowLayout());
@@ -116,8 +133,13 @@ public class AddingRecordDialog extends JDialog {
 			label01 = new JLabel("類別");
 			add(label01);
 
+			this.categories = categories;
 			dropDownList = new JComboBox<>(categories);
 			add(dropDownList);
+		}
+
+		public Object[] getCategories() {
+			return categories;
 		}
 
 		public String getCategory() {

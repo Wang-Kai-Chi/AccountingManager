@@ -43,6 +43,16 @@ public class CashFlowRecordService {
 
 		headers = repo.getHeaders();
 	}
+	
+	public void insertNewRecordIfIdIsZero() {
+		for(CashFlowRecord c:recordList) {
+			if(c.getId() == 0) {
+				repo.add(c);
+				System.out.println(c);
+			}
+		}
+		
+	}
 
 	public ArrayList<CashFlowRecord> getRecordList() {
 		return recordList;
