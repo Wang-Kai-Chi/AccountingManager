@@ -28,7 +28,7 @@ public class AddingRecordDialog extends JDialog {
 
 		jp = new JPanel();
 		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-		jp.add(new TypePicker());
+		//jp.add(new TypePicker());
 		jp.add(new MoneyInput());
 		jp.add(new DatePicker());
 		jp.add(new CategoryPicker(categories));
@@ -60,10 +60,10 @@ public class AddingRecordDialog extends JDialog {
 	}
 
 	private void writeRecord() {
-		MoneyInput mi = (MoneyInput) jp.getComponent(1);
-		DatePicker dp = (DatePicker) jp.getComponent(2);
-		CategoryPicker cp = (CategoryPicker) jp.getComponent(3);
-		Description des = (Description) jp.getComponent(4);
+		MoneyInput mi = (MoneyInput) jp.getComponent(0);
+		DatePicker dp = (DatePicker) jp.getComponent(1);
+		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
+		Description des = (Description) jp.getComponent(3);
 
 		cashFlowRecord = new CashFlowRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
 

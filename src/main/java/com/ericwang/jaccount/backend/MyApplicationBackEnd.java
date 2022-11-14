@@ -4,22 +4,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MyApplicationBackEnd {
-	private final CashFlowRecordService cashFlowRecordService;
-	private final SingleConsumptionRecordRepository repo;
+	private CashFlowRecordService cashFlowRecordService;
+	private SingleConsumptionRecordRepository singleConsumptionRecordRepository;
+	
 	private ConsumptionCategoryService consumptionCategoryService;
-	private ConsumptionCategoryRepository repo2;
+	private ConsumptionCategoryRepository consumptionCategoryRepository;
 
-	public MyApplicationBackEnd(MySQLConnectionBuilder mySQLConnectionBuilder) {
+	public MyApplicationBackEnd() {
 		System.out.println("connection start");
 
-		repo = new SingleConsumptionRecordRepository();
-		repo2 = new ConsumptionCategoryRepository();
-		
-		start(mySQLConnectionBuilder.getConnection());
+		singleConsumptionRecordRepository = new SingleConsumptionRecordRepository();
+		consumptionCategoryRepository = new ConsumptionCategoryRepository();
 
-		cashFlowRecordService = new CashFlowRecordService(repo);
+		cashFlowRecordService = new CashFlowRecordService(singleConsumptionRecordRepository);
 
-		consumptionCategoryService = new ConsumptionCategoryService(repo2);
+		consumptionCategoryService = new ConsumptionCategoryService(consumptionCategoryRepository);
 	}
 
 	public void refresh() {
@@ -28,31 +27,29 @@ public class MyApplicationBackEnd {
 	}
 
 	public void printData() {
-		for (CashFlowRecord c : cashFlowRecordService.getRecordList())
-			System.out.println(c);
+		cashFlowRecordService.print();
 
-		for (ConsumptionCategory c : consumptionCategoryService.getRecordList())
-			System.out.println(c);
+		consumptionCategoryService.print();
 	}
 	
-	private void start(Connection connection) {
-		String sql = "select * from single_consumption_record";
-		
-		String sql2 = "SELECT * FROM `consumption_category`";
+	public void querySingleConsumptionRecord(Connection connection) {
+		String sql = "SELECT * FROM single_consumption_record";
 		try {
-			System.out.println("Query command: " + sql);
-			repo.query(sql, connection);
-			// controller.add();
-
-//        controller.update(controller.getRows(), controller.getHeaders()[1], "John");
-//        controller.update(controller.getRows(), controller.getHeaders()[2], "1989-10-29");
-//        controller.update(controller.getRows(), controller.getHeaders()[3], "solder");
-
-			repo2.query(sql2, connection);
-		} catch (SQLException ignored) {
+			singleConsumptionRecordRepository.query(sql, connection);
+		} catch (SQLException e) {
+			
 		}
 	}
-
+	
+	public void queryConsumptionCategory(Connection connection) {
+		String sql2 = "SELECT * FROM `consumption_category`";
+		try {
+			consumptionCategoryRepository.query(sql2, connection);
+		} catch (SQLException e) {
+			
+		}
+	}
+	
 	public CashFlowRecordService getCashFlowRecordService() {
 		return cashFlowRecordService;
 	}

@@ -56,6 +56,11 @@ public class CashFlowRecordService {
 		}
 		
 	}
+	
+	public void print() {
+		for (CashFlowRecord c : recordList)
+			System.out.println(c);
+	}
 
 	public ArrayList<CashFlowRecord> getRecordList() {
 		return recordList;

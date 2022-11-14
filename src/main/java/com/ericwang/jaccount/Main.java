@@ -14,8 +14,11 @@ public class Main {
         CashFlowRecordService service;
         ConsumptionCategoryService service2;
         try {
-        	MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(
-                    new MySQLConnectionBuilder("accounting_db01"));
+        	MySQLConnectionBuilder connectionBuilder = new MySQLConnectionBuilder("accounting_db01");
+        	MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd();
+        	
+        	myApplicationBackEnd.queryConsumptionCategory(connectionBuilder.getConnection());
+        	myApplicationBackEnd.querySingleConsumptionRecord(connectionBuilder.getConnection());
             
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();

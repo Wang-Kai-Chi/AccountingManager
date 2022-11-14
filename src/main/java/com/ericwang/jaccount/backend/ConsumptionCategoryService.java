@@ -34,6 +34,11 @@ public class ConsumptionCategoryService {
 
 		headers = repo.getHeaders();
 	}
+	
+	public void print() {
+		for (ConsumptionCategory c : recordList)
+			System.out.println(c);
+	}
 
 	public ArrayList<ConsumptionCategory> getRecordList() {
 		return recordList;
