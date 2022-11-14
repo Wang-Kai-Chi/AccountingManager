@@ -21,3 +21,9 @@ on consumption.category_id = cc.id;
 
 #select between now and specific date
 SELECT * FROM `single_consumption_record` WHERE date>"2022-11-03" and date<now();
+
+#select from a week
+select * from single_consumption_record WHERE yearweek(date) = yearweek("2022-11-01");
+
+#select from a month
+select * from single_consumption_record WHERE month(date) = 10;

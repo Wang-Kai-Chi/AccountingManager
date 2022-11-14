@@ -17,7 +17,7 @@ import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 
 public class MyApplicationFrame extends JFrame {
 	private CashFlowTable cashFlowTable;
-	private AddingRecordDialog dialog;
+	private RecordDialog dialog;
 	private CashFlowRecordService cfrs;
 
 	public MyApplicationFrame(CashFlowRecordService cfrs, ConsumptionCategoryService ccs) {
@@ -47,7 +47,7 @@ public class MyApplicationFrame extends JFrame {
 		for (ConsumptionCategory c : ccs.getRecordList())
 			names.add(c.getName());
 
-		dialog = new AddingRecordDialog(this, names.toArray());
+		dialog = new RecordDialog(this, names.toArray());
 		dialog.setCashFlowRecordService(cfrs);
 	}
 

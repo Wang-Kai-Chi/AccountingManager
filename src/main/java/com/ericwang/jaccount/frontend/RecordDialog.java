@@ -16,12 +16,12 @@ import javax.swing.JTextField;
 import com.ericwang.jaccount.backend.CashFlowRecord;
 import com.ericwang.jaccount.backend.CashFlowRecordService;
 
-public class AddingRecordDialog extends JDialog {
+public class RecordDialog extends JDialog {
 	private JButton acceptB;
 	private CashFlowRecord cashFlowRecord;
 	private JPanel jp;
 	private CashFlowRecordService cashFlowRecordService;
-	public AddingRecordDialog(JFrame frame, Object[] categories) {
+	public RecordDialog(JFrame frame, Object[] categories) {
 		super(frame, "新增資料");
 
 		setLayout(new BorderLayout());
