@@ -3,24 +3,22 @@ package com.ericwang.jaccount.frontend;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.ericwang.jaccount.backend.CashFlowRecordService;
+import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
 import com.ericwang.jaccount.backend.ConsumptionCategory;
-import com.ericwang.jaccount.backend.ConsumptionCategoryService;
-import com.ericwang.jaccount.backend.MyApplicationBackEnd;
+import com.ericwang.jaccount.backend.ConsumptionCategoryController;
 
 public class MyApplicationFrame extends JFrame {
 	private CashFlowTable cashFlowTable;
 	private RecordDialog dialog;
-	private CashFlowRecordService cfrs;
+	private SingleConsumptionRecordController cfrs;
 
-	public MyApplicationFrame(CashFlowRecordService cfrs, ConsumptionCategoryService ccs) {
+	public MyApplicationFrame(SingleConsumptionRecordController cfrs, ConsumptionCategoryController ccs) {
 		super("記帳本");
 		this.cfrs = cfrs;
 
@@ -41,14 +39,14 @@ public class MyApplicationFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	private void initDialog(ConsumptionCategoryService ccs) {
+	private void initDialog(ConsumptionCategoryController ccs) {
 		ArrayList<String> names = new ArrayList<>();
 
 		for (ConsumptionCategory c : ccs.getRecordList())
 			names.add(c.getName());
 
 		dialog = new RecordDialog(this, names.toArray());
-		dialog.setCashFlowRecordService(cfrs);
+		dialog.setSingleConsumptionRecordController(cfrs);
 	}
 
 	private class ManagePanel extends JPanel {

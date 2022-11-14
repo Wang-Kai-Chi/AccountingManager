@@ -2,7 +2,6 @@ package com.ericwang.jaccount.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.Iterator;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,14 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.ericwang.jaccount.backend.CashFlowRecord;
-import com.ericwang.jaccount.backend.CashFlowRecordService;
+import com.ericwang.jaccount.backend.SingleConsumptionRecord;
+import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
 
 public class RecordDialog extends JDialog {
 	private JButton acceptB;
-	private CashFlowRecord cashFlowRecord;
+	private SingleConsumptionRecord singleConsumptionRecord;
 	private JPanel jp;
-	private CashFlowRecordService cashFlowRecordService;
+	private SingleConsumptionRecordController singleConsumptionRecordController;
 	public RecordDialog(JFrame frame, Object[] categories) {
 		super(frame, "新增資料");
 
@@ -44,12 +43,12 @@ public class RecordDialog extends JDialog {
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
 
-	public void setCashFlowRecordService(CashFlowRecordService cashFlowRecordService) {
-		this.cashFlowRecordService = cashFlowRecordService;
+	public void setSingleConsumptionRecordController(SingleConsumptionRecordController singleConsumptionRecordController) {
+		this.singleConsumptionRecordController = singleConsumptionRecordController;
 	}
 
-	public CashFlowRecord getCashFlowRecord() {
-		return cashFlowRecord;
+	public SingleConsumptionRecord getCashFlowRecord() {
+		return singleConsumptionRecord;
 	}
 
 	private void setActionListener() {
@@ -70,14 +69,14 @@ public class RecordDialog extends JDialog {
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
 		Description des = (Description) jp.getComponent(3);
 
-		cashFlowRecord = new CashFlowRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
+		singleConsumptionRecord = new SingleConsumptionRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
 
 		for (int i = 0; i < cp.getCategories().length; i++) {
 			if (cp.getCategory().equals((String) cp.getCategories()[i]))
-				cashFlowRecord.setCategory_id(i + 1);
+				singleConsumptionRecord.setCategory_id(i + 1);
 		}
 
-		cashFlowRecordService.getRecordList().add(cashFlowRecord);
+		singleConsumptionRecordController.getRecordList().add(singleConsumptionRecord);
 
 		mi.init();
 		dp.init();

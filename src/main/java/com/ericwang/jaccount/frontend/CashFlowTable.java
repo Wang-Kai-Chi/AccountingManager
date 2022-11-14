@@ -3,8 +3,8 @@ package com.ericwang.jaccount.frontend;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.ericwang.jaccount.backend.CashFlowRecord;
-import com.ericwang.jaccount.backend.CashFlowRecordService;
+import com.ericwang.jaccount.backend.SingleConsumptionRecord;
+import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
 
 public class CashFlowTable extends JTable {
 	private MyTableModel tableModel;
@@ -15,13 +15,13 @@ public class CashFlowTable extends JTable {
 		setModel(tableModel);
 	}
 	
-	public void initTable(CashFlowRecordService service) {
-		tableModel.setColumnIdentifiers(service.getHeaders());
-		tableModel.setRowCount(service.getRecordList().size());
-		tableModel.setColumnCount(service.getHeaders().length);
+	public void initTable(SingleConsumptionRecordController controller) {
+		tableModel.setColumnIdentifiers(controller.getHeaders());
+		tableModel.setRowCount(controller.getRecordList().size());
+		tableModel.setColumnCount(controller.getHeaders().length);
 		
-		for (int i = 0; i < service.getRecordList().size(); i++) {
-			CashFlowRecord c = service.getRecordList().get(i);
+		for (int i = 0; i < controller.getRecordList().size(); i++) {
+			SingleConsumptionRecord c = controller.getRecordList().get(i);
 			tableModel.setValueAt(c.getId(), i, 0);
 			tableModel.setValueAt(c.getAmount_of_money(), i, 1);
 			tableModel.setValueAt(c.getDate(), i, 2);

@@ -2,19 +2,19 @@ package com.ericwang.jaccount.backend;
 
 import java.util.ArrayList;
 
-public class ConsumptionCategoryService {
+public class ConsumptionCategoryController {
 	private ArrayList<ConsumptionCategory> recordList;
 	private String[] headers;
 	private ConsumptionCategoryRepository repo;
 
-	public ConsumptionCategoryService() {
+	public ConsumptionCategoryController() {
 		recordList = new ArrayList<>();
 		headers = new String[] { "id", "name"};
 		
 		addDefaultValue();
 	}
 	
-	public ConsumptionCategoryService(ConsumptionCategoryRepository repo) {
+	public ConsumptionCategoryController(ConsumptionCategoryRepository repo) {
 		this();
 		this.repo = repo;
 	}

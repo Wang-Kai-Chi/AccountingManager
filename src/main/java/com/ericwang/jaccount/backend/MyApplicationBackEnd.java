@@ -4,59 +4,53 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MyApplicationBackEnd {
-	private CashFlowRecordService rawRecordService;
-	private SingleConsumptionRecordRepository singleConsumptionRecordRepository;
-	
-	private ConsumptionCategoryService consumptionCategoryService;
-	private ConsumptionCategoryRepository consumptionCategoryRepository;
+    private SingleConsumptionRecordController rawRecordCon;
+    private SingleConsumptionRecordRepository singleConsumptionRecordRepo;
 
-	public MyApplicationBackEnd() {
-		System.out.println("connection start");
+    private ConsumptionCategoryController consumptionCategoryCon;
+    private ConsumptionCategoryRepository consumptionCategoryRepo;
 
-		singleConsumptionRecordRepository = new SingleConsumptionRecordRepository();
-		consumptionCategoryRepository = new ConsumptionCategoryRepository();
+    public MyApplicationBackEnd() {
+        System.out.println("connection start");
 
-		rawRecordService = new CashFlowRecordService(singleConsumptionRecordRepository);
+        singleConsumptionRecordRepo = new SingleConsumptionRecordRepository();
+        rawRecordCon = new SingleConsumptionRecordController(singleConsumptionRecordRepo);
 
-		consumptionCategoryService = new ConsumptionCategoryService(consumptionCategoryRepository);
-	}
+        consumptionCategoryRepo = new ConsumptionCategoryRepository();
+        consumptionCategoryCon = new ConsumptionCategoryController(consumptionCategoryRepo);
+    }
 
-	public void refresh() {
-		rawRecordService.refresh();
-		consumptionCategoryService.refresh();
-	}
+    public void refresh() {
+        rawRecordCon.refresh();
+        consumptionCategoryCon.refresh();
+    }
 
-	public void printData() {
-		rawRecordService.print();
+    public void printData() {
+        rawRecordCon.print();
+        consumptionCategoryCon.print();
+    }
 
-		consumptionCategoryService.print();
-	}
-	
-	public void querySingleConsumptionRecord(Connection connection) {
-		String sql = "SELECT * FROM single_consumption_record";
-		try {
-			singleConsumptionRecordRepository.query(sql, connection);
-		} catch (SQLException e) {
-			
-		}
-	}
-	
-	public void queryConsumptionCategory(Connection connection) {
-		String sql2 = "SELECT * FROM `consumption_category`";
-		try {
-			consumptionCategoryRepository.query(sql2, connection);
-		} catch (SQLException e) {
-			
-		}
-	}
-	
-	public CashFlowRecordService getRawRecordService() {
-		return rawRecordService;
-	}
+    public void querySingleConsumptionRecord(Connection connection) {
+        String sql = "SELECT * FROM single_consumption_record";
+        try {
+            singleConsumptionRecordRepo.query(sql, connection);
+        } catch (SQLException ignored) {
+        }
+    }
 
-	public ConsumptionCategoryService getConsumptionCategoryService() {
-		return consumptionCategoryService;
-	}
-	
-	
+    public void queryConsumptionCategory(Connection connection) {
+        String sql2 = "SELECT * FROM `consumption_category`";
+        try {
+            consumptionCategoryRepo.query(sql2, connection);
+        } catch (SQLException ignored) {
+        }
+    }
+
+    public SingleConsumptionRecordController getRawRecordCon() {
+        return rawRecordCon;
+    }
+
+    public ConsumptionCategoryController getConsumptionCategoryCon() {
+        return consumptionCategoryCon;
+    }
 }

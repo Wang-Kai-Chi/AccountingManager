@@ -15,7 +15,7 @@ public class SingleConsumptionRecordRepository {
         tableHeaders = new TableHeaders(resultSet.getMetaData());
     }
 
-    public void add(CashFlowRecord cfr) {
+    public void add(SingleConsumptionRecord cfr) {
         try {
             resultSet.moveToInsertRow();
             String[] headers = tableHeaders.getHeaders();
