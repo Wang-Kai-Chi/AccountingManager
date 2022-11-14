@@ -1,6 +1,7 @@
 package com.ericwang.jaccount.backend;
 
 public class PrettyConsumptionRecord {
+    private int id;
     private int amountOfMoney;
     private String date;
     private String category;
@@ -9,17 +10,26 @@ public class PrettyConsumptionRecord {
     public PrettyConsumptionRecord(int amountOfMoney, String date, String category, String description) {
         this.amountOfMoney = amountOfMoney;
         this.date = date;
-        this.description = description;
         this.category = category;
+        this.description = description;
+    }
+
+    public PrettyConsumptionRecord(int id, int amountOfMoney, String date, String category, String description) {
+        this.id = id;
+        this.amountOfMoney = amountOfMoney;
+        this.date = date;
+        this.category = category;
+        this.description = description;
     }
 
     @Override
     public String toString() {
         return "PrettyConsumptionRecord{" +
-                "amountOfMoney=" + amountOfMoney +
+                "id=" + id +
+                ", amountOfMoney=" + amountOfMoney +
                 ", date='" + date + '\'' +
-                ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 
@@ -31,12 +41,16 @@ public class PrettyConsumptionRecord {
         this.date = date;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public int getId() {
+        return id;
     }
 
     public int getAmountOfMoney() {
@@ -47,11 +61,11 @@ public class PrettyConsumptionRecord {
         return date;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public String getCategory() {
         return category;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

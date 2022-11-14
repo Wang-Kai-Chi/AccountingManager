@@ -24,9 +24,10 @@ public class PrettyConsumptionRecordController {
 			for (int i = 1; i < repo.getRows() + 1; i++) {
 				recordList.add(new PrettyConsumptionRecord(
                         Integer.parseInt(repo.getData(i, 1)),
-						repo.getData(i, 2),
-                        repo.getData(i, 3),
-						repo.getData(i, 4)));
+						Integer.parseInt(repo.getData(i, 2)),
+						repo.getData(i, 3),
+                        repo.getData(i, 4),
+						repo.getData(i, 5)));
 			}
 			headers = repo.getHeaders();
 		}
