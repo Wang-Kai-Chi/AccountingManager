@@ -55,7 +55,12 @@ public class AddingRecordDialog extends JDialog {
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
 			setVisible(false);
+			
+			try {
 			writeRecord();
+			}catch (Exception e1) {
+				
+			}
 		});
 	}
 
@@ -74,10 +79,9 @@ public class AddingRecordDialog extends JDialog {
 
 		cashFlowRecordService.getRecordList().add(cashFlowRecord);
 
-		System.out.println(cashFlowRecord);
-		
-		for(CashFlowRecord c:cashFlowRecordService.getRecordList())
-			System.out.println(c);
+		mi.init();
+		dp.init();
+		des.init();
 	}
 
 	private class TypePicker extends JPanel {
@@ -115,6 +119,10 @@ public class AddingRecordDialog extends JDialog {
 			textF = new JTextField();
 			textF.setColumns(15);
 			add(textF);
+		}
+		
+		public void init() {
+			textF.setText("");
 		}
 
 		public int getMoney() {
@@ -160,6 +168,10 @@ public class AddingRecordDialog extends JDialog {
 			textF = new JTextField();
 			textF.setColumns(25);
 			add(textF);
+		}
+		
+		public void init() {
+			textF.setText("");
 		}
 
 		public String getString() {

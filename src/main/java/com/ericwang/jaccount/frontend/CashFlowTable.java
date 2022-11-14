@@ -8,18 +8,14 @@ import com.ericwang.jaccount.backend.CashFlowRecordService;
 
 public class CashFlowTable extends JTable {
 	private MyTableModel tableModel;
-	private CashFlowRecordService service;
-
-	public CashFlowTable(CashFlowRecordService service) {
-		this.service = service;
-
+	
+	public CashFlowTable() {
 		tableModel = new MyTableModel();
-		initTable();
 		
 		setModel(tableModel);
 	}
 	
-	public void initTable() {
+	public void initTable(CashFlowRecordService service) {
 		tableModel.setColumnIdentifiers(service.getHeaders());
 		tableModel.setRowCount(service.getRecordList().size());
 		tableModel.setColumnCount(service.getHeaders().length);

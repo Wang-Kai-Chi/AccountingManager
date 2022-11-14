@@ -23,13 +23,13 @@ public class CashFlowRecordService {
 	}
 	
 	private void addDefaultValues() {
-		recordList.add(new CashFlowRecord(1,100,"2022-11-01",1,"",""));
-		recordList.add(new CashFlowRecord(2,150,"2022-11-01",1,"",""));
-		recordList.add(new CashFlowRecord(3,80,"2022-11-02", 2,"water bill",""));
-		recordList.add(new CashFlowRecord(4,120,"2022-11-02",2,"",""));
-		recordList.add(new CashFlowRecord(5,180,"2022-11-02",3,"bus",""));
-		recordList.add(new CashFlowRecord(6,180,"2022-11-03",1,"breakfast",""));
-		recordList.add(new CashFlowRecord(7, 120, "2022-01-01", 1, "dinner",""));
+		recordList.add(new CashFlowRecord(1,100,"2022-11-01",1,"","food"));
+		recordList.add(new CashFlowRecord(2,150,"2022-11-01",1,"","food"));
+		recordList.add(new CashFlowRecord(3,80,"2022-11-02", 2,"water bill","bill"));
+		recordList.add(new CashFlowRecord(4,120,"2022-11-02",2,"","bill"));
+		recordList.add(new CashFlowRecord(5,180,"2022-11-02",3,"bus","transportation"));
+		recordList.add(new CashFlowRecord(6,180,"2022-11-03",1,"breakfast","food"));
+		recordList.add(new CashFlowRecord(7, 120, "2022-01-01", 1, "dinner","food"));
 	}
 
 	public void refresh() {

@@ -37,6 +37,10 @@ public class DatePicker extends JPanel{
 		add(datePicker);
 	}
 	
+	public void init() {
+		datePicker.getJFormattedTextField().setText("");
+	}
+	
 	public String getDate() {
 		return datePicker.getJFormattedTextField().getText();
 	}

@@ -11,8 +11,8 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to JAccountingManager!!");
 
-        CashFlowRecordService service;
-        ConsumptionCategoryService service2;
+        CashFlowRecordService cashFlowRecordService;
+		ConsumptionCategoryService consumptionCategoryService;
         try {
         	MySQLConnectionBuilder connectionBuilder = new MySQLConnectionBuilder("accounting_db01");
         	MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd();
@@ -23,15 +23,15 @@ public class Main {
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
             
-            service = myApplicationBackEnd.getCashFlowRecordService();
-            service2 = myApplicationBackEnd.getConsumptionCategoryService();
+            cashFlowRecordService = myApplicationBackEnd.getRawRecordService();
+            consumptionCategoryService = myApplicationBackEnd.getConsumptionCategoryService();
             
         } catch (Exception e) {
-        	service = new CashFlowRecordService();
-        	service2 = new ConsumptionCategoryService();
+        	cashFlowRecordService = new CashFlowRecordService();
+        	consumptionCategoryService = new ConsumptionCategoryService();
             e.printStackTrace();
         }
         
-        MyApplicationFrame myApplicationFrame = new MyApplicationFrame(service, service2);
+        MyApplicationFrame myApplicationFrame = new MyApplicationFrame(cashFlowRecordService, consumptionCategoryService);
     }
 }

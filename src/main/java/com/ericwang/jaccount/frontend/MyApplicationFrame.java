@@ -26,7 +26,8 @@ public class MyApplicationFrame extends JFrame {
 
 		setLayout(new BorderLayout());
 
-		cashFlowTable = new CashFlowTable(cfrs);
+		cashFlowTable = new CashFlowTable();
+		cashFlowTable.initTable(cfrs);
 		JScrollPane jsp = new JScrollPane(cashFlowTable);
 		add(jsp, BorderLayout.CENTER);
 
@@ -74,7 +75,7 @@ public class MyApplicationFrame extends JFrame {
 			refreshB.addActionListener(e -> {
 				cfrs.insertNewRecordIfIdIsZero();
 				cfrs.refresh();
-				cashFlowTable.initTable();
+				cashFlowTable.initTable(cfrs);
 			});
 		}
 	}

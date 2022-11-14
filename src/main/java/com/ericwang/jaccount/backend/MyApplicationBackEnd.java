@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MyApplicationBackEnd {
-	private CashFlowRecordService cashFlowRecordService;
+	private CashFlowRecordService rawRecordService;
 	private SingleConsumptionRecordRepository singleConsumptionRecordRepository;
 	
 	private ConsumptionCategoryService consumptionCategoryService;
@@ -16,18 +16,18 @@ public class MyApplicationBackEnd {
 		singleConsumptionRecordRepository = new SingleConsumptionRecordRepository();
 		consumptionCategoryRepository = new ConsumptionCategoryRepository();
 
-		cashFlowRecordService = new CashFlowRecordService(singleConsumptionRecordRepository);
+		rawRecordService = new CashFlowRecordService(singleConsumptionRecordRepository);
 
 		consumptionCategoryService = new ConsumptionCategoryService(consumptionCategoryRepository);
 	}
 
 	public void refresh() {
-		cashFlowRecordService.refresh();
+		rawRecordService.refresh();
 		consumptionCategoryService.refresh();
 	}
 
 	public void printData() {
-		cashFlowRecordService.print();
+		rawRecordService.print();
 
 		consumptionCategoryService.print();
 	}
@@ -50,8 +50,8 @@ public class MyApplicationBackEnd {
 		}
 	}
 	
-	public CashFlowRecordService getCashFlowRecordService() {
-		return cashFlowRecordService;
+	public CashFlowRecordService getRawRecordService() {
+		return rawRecordService;
 	}
 
 	public ConsumptionCategoryService getConsumptionCategoryService() {
