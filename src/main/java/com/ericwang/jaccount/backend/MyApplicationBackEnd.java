@@ -15,6 +15,9 @@ public class MyApplicationBackEnd {
     private ConsumptionCategoryController consumptionCategoryCon;
     private ConsumptionCategoryRepository consumptionCategoryRepo;
 
+    private PrettyConsumptionRecordRepository prettyConsumptionRecordRepo;
+    private PrettyConsumptionRecordController prettyConsumptionRecordCon;
+
     public MyApplicationBackEnd(Connection connection) {
         System.out.println("connection start");
 
@@ -25,16 +28,22 @@ public class MyApplicationBackEnd {
         consumptionCategoryRepo = new ConsumptionCategoryRepository();
         consumptionCategoryRepo.setConnection(connection);
         consumptionCategoryCon = new ConsumptionCategoryController(consumptionCategoryRepo);
+
+        prettyConsumptionRecordRepo = new PrettyConsumptionRecordRepository();
+        prettyConsumptionRecordRepo.setConnection(connection);
+        prettyConsumptionRecordCon = new PrettyConsumptionRecordController(prettyConsumptionRecordRepo);
     }
 
     public void refresh() {
         rawRecordCon.refresh();
         consumptionCategoryCon.refresh();
+        prettyConsumptionRecordCon.refresh();
     }
 
     public void printData() {
         rawRecordCon.print();
         consumptionCategoryCon.print();
+        prettyConsumptionRecordCon.print();
     }
 
     public void querySingleConsumptionRecord() {
@@ -53,11 +62,25 @@ public class MyApplicationBackEnd {
         }
     }
 
+    public void queryPrettyConsumptionRecord(){
+        String sql = "select consumption.amount_of_money, consumption.date, consumption.description, cc.name as category " +
+                "from single_consumption_record as consumption " +
+                "join consumption_category as cc " +
+                "on consumption.category_id = cc.id;";
+        try {
+            prettyConsumptionRecordRepo.query(sql);
+        } catch (SQLException ignored) {}
+    }
+
     public SingleConsumptionRecordController getRawRecordCon() {
         return rawRecordCon;
     }
 
     public ConsumptionCategoryController getConsumptionCategoryCon() {
         return consumptionCategoryCon;
+    }
+
+    public PrettyConsumptionRecordController getPrettyConsumptionRecordCon() {
+        return prettyConsumptionRecordCon;
     }
 }

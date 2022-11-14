@@ -19,6 +19,7 @@ public class Main {
 
             myApplicationBackEnd.queryConsumptionCategory();
             myApplicationBackEnd.querySingleConsumptionRecord();
+            myApplicationBackEnd.queryPrettyConsumptionRecord();
 
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
