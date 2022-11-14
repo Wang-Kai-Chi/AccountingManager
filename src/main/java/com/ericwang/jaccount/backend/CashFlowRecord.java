@@ -1,19 +1,26 @@
 package com.ericwang.jaccount.backend;
 
 public class CashFlowRecord {
-	private final int id;
+	private int id;
 	private int amount_of_money;
 	private String date;
 	private int category_id;
 	private String category;
 	private String description;
 
+	public CashFlowRecord(int amount_of_money, String date, String category, String description) {
+		this.amount_of_money = amount_of_money;
+		this.date = date;
+		this.category = category;
+		this.description = description;
+	}
+
 	public CashFlowRecord(int id) {
 		this.id = id;
 	}
 
-	public CashFlowRecord(int id, int amount_of_money, String date, int category_id,
-			String description, String category) {
+	public CashFlowRecord(int id, int amount_of_money, String date, int category_id, String description,
+			String category) {
 		this.id = id;
 		this.amount_of_money = amount_of_money;
 		this.date = date;
@@ -57,8 +64,6 @@ public class CashFlowRecord {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 
 	public String getCategory() {
 		return category;
@@ -71,7 +76,7 @@ public class CashFlowRecord {
 	@Override
 	public String toString() {
 		return "CashFlowRecord" + id + "[amount_of_money=" + amount_of_money + ", date=" + date + ", category_id="
-				+ category_id +", category ="+category +", description=" + description + "]";
+				+ category_id + ", category =" + category + ", description=" + description + "]";
 	}
 
 }

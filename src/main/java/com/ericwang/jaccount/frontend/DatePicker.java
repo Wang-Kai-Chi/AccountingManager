@@ -15,7 +15,8 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 public class DatePicker extends JPanel{
-	JLabel label01;
+	private JLabel label01;
+	private JDatePickerImpl datePicker;
 	
 	public DatePicker() {
 		super(new FlowLayout());
@@ -23,18 +24,21 @@ public class DatePicker extends JPanel{
 		label01 = new JLabel("日期");
 		
 		UtilDateModel model = new UtilDateModel();
-		//model.setDate(20,04,2014);
-		// Need this...
+		
 		Properties p = new Properties();
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");
 		p.put("text.year", "Year");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		// Don't know about the formatter, but there it is...
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		
+		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		
 		add(label01);
 		add(datePicker);
+	}
+	
+	public String getDate() {
+		return datePicker.getJFormattedTextField().getText();
 	}
 	
 	private class DateLabelFormatter extends AbstractFormatter {

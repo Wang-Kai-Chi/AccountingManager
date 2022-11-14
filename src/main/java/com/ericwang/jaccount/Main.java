@@ -1,7 +1,6 @@
 package com.ericwang.jaccount;
 
 import com.ericwang.jaccount.backend.CashFlowRecordService;
-import com.ericwang.jaccount.backend.ConsumptionCategory;
 import com.ericwang.jaccount.backend.ConsumptionCategoryService;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
