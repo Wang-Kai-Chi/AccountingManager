@@ -1,4 +1,4 @@
-package com.ericwang.jaccount.backend;
+package com.ericwang.jaccount.backend.cc;
 
 public class ConsumptionCategory {
 	private int id;

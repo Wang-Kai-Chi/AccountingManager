@@ -1,4 +1,4 @@
-package com.ericwang.jaccount.backend;
+package com.ericwang.jaccount.backend.scr;
 
 public class SingleConsumptionRecord {
 	private int id;

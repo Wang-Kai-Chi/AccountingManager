@@ -1,4 +1,6 @@
-package com.ericwang.jaccount.backend;
+package com.ericwang.jaccount.backend.cc;
+
+import com.ericwang.jaccount.backend.TableHeaders;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,8 +10,13 @@ import java.sql.Statement;
 public class ConsumptionCategoryRepository {
 	private ResultSet resultSet;
     private TableHeaders tableHeaders;
+    private Connection connection;
 
-    public void query(String sql, Connection connection) throws SQLException {
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void query(String sql) throws SQLException {
         Statement stmt = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_UPDATABLE);

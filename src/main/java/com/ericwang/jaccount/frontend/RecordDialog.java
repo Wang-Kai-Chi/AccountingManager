@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.ericwang.jaccount.backend.SingleConsumptionRecord;
-import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
+import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
+import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 
 public class RecordDialog extends JDialog {
 	private JButton acceptB;

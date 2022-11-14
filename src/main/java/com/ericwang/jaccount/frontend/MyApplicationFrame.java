@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
-import com.ericwang.jaccount.backend.ConsumptionCategory;
-import com.ericwang.jaccount.backend.ConsumptionCategoryController;
+import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
+import com.ericwang.jaccount.backend.cc.ConsumptionCategory;
+import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 
 public class MyApplicationFrame extends JFrame {
 	private CashFlowTable cashFlowTable;

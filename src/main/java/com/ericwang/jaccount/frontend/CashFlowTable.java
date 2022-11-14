@@ -3,8 +3,8 @@ package com.ericwang.jaccount.frontend;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.ericwang.jaccount.backend.SingleConsumptionRecord;
-import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
+import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
+import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 
 public class CashFlowTable extends JTable {
 	private MyTableModel tableModel;

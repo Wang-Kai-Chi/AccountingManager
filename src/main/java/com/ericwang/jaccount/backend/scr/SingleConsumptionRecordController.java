@@ -1,5 +1,6 @@
-package com.ericwang.jaccount.backend;
+package com.ericwang.jaccount.backend.scr;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SingleConsumptionRecordController {
@@ -49,8 +50,12 @@ public class SingleConsumptionRecordController {
 		if(repo!=null) {
 			for(SingleConsumptionRecord c:recordList) {
 				if(c.getId() == 0) {
-					repo.add(c);
-					System.out.println(c);
+					try {
+						repo.add(c);
+						System.out.println(c);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}			
 		}

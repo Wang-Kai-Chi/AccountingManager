@@ -1,7 +1,7 @@
 package com.ericwang.jaccount;
 
-import com.ericwang.jaccount.backend.SingleConsumptionRecordController;
-import com.ericwang.jaccount.backend.ConsumptionCategoryController;
+import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
+import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
 import com.ericwang.jaccount.frontend.MyApplicationFrame;
@@ -15,10 +15,10 @@ public class Main {
         ConsumptionCategoryController consumptionCategoryController;
         try {
             MySQLConnectionBuilder connectionBuilder = new MySQLConnectionBuilder("accounting_db01");
-            MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd();
+            MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(connectionBuilder.getConnection());
 
-            myApplicationBackEnd.queryConsumptionCategory(connectionBuilder.getConnection());
-            myApplicationBackEnd.querySingleConsumptionRecord(connectionBuilder.getConnection());
+            myApplicationBackEnd.queryConsumptionCategory();
+            myApplicationBackEnd.querySingleConsumptionRecord();
 
             myApplicationBackEnd.refresh();
             myApplicationBackEnd.printData();
