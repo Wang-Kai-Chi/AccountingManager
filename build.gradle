@@ -14,8 +14,13 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation 'mysql:mysql-connector-java:8.0.31'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
 }
