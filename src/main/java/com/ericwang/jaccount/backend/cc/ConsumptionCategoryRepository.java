@@ -16,7 +16,8 @@ public class ConsumptionCategoryRepository {
         this.connection = connection;
     }
 
-    public void query(String sql) throws SQLException {
+    public void query() throws SQLException {
+         String sql = "SELECT * FROM `consumption_category`";
         Statement stmt = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_UPDATABLE);

@@ -68,7 +68,6 @@ public class MyApplicationFrame extends JFrame {
                 controller.insertNewRecordIfIdIsZero(categories);
                 controller.refresh();
                 cashFlowTable.initTable(controller);
-
             });
         }
     }

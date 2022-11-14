@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PrettyConsumptionRecordController {
-    private ArrayList<PrettyConsumptionRecord> recordList;
+    private final ArrayList<PrettyConsumptionRecord> recordList;
     private PrettyConsumptionRecordRepository repo;
     private String[] headers;
 
@@ -22,6 +22,12 @@ public class PrettyConsumptionRecordController {
 
     public void refresh() {
         if (repo != null) {
+            try {
+                repo.query();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             recordList.clear();
 
             for (int i = 1; i < repo.getRows() + 1; i++) {

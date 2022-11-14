@@ -1,11 +1,10 @@
 package com.ericwang.jaccount;
 
-import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
-import com.ericwang.jaccount.backend.cc.ConsumptionCategory;
-import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
-import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
+import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.backend.cc.ConsumptionCategory;
+import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 import com.ericwang.jaccount.frontend.MyApplicationFrame;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ public class Main {
             MyApplicationBackEnd myApplicationBackEnd = new MyApplicationBackEnd(connectionBuilder.getConnection());
 
             myApplicationBackEnd.queryConsumptionCategory();
-            myApplicationBackEnd.querySingleConsumptionRecord();
             myApplicationBackEnd.queryPrettyConsumptionRecord();
 
             myApplicationBackEnd.refresh();
