@@ -14,8 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
-import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecord;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordController;
 import com.ericwang.jaccount.frontend.widget.CategoryPicker;
 import com.ericwang.jaccount.frontend.widget.DatePicker;
 import com.ericwang.jaccount.frontend.widget.Description;

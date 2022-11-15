@@ -2,6 +2,8 @@ package com.ericwang.jaccount.backend;
 
 import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategoryRepository;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordRepository;
 
 import java.sql.Connection;
 import java.sql.SQLException;

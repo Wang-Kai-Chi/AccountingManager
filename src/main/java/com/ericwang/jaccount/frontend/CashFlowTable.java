@@ -3,8 +3,8 @@ package com.ericwang.jaccount.frontend;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
-import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecord;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordController;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecordController;
 

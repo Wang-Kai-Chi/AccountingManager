@@ -1,4 +1,4 @@
-package com.ericwang.jaccount.backend;
+package com.ericwang.jaccount.backend.pcr;
 
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
 

@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
-import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecord;
+import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordController;
 import com.ericwang.jaccount.frontend.widget.CategoryPicker;
 import com.ericwang.jaccount.frontend.widget.DatePicker;
 

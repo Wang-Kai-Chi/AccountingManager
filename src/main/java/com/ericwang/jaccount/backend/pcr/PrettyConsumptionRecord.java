@@ -1,4 +1,4 @@
-package com.ericwang.jaccount.backend;
+package com.ericwang.jaccount.backend.pcr;
 
 public class PrettyConsumptionRecord {
     private int id;
