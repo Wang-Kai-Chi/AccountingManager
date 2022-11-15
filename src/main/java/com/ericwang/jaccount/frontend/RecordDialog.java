@@ -20,8 +20,10 @@ public class RecordDialog extends JDialog {
 	private PrettyConsumptionRecord record;
 	private JPanel jp;
 	private PrettyConsumptionRecordController controller;
+	private Object[] categories;
 	public RecordDialog(JFrame frame, Object[] categories) {
 		super(frame, "新增資料");
+		this.categories = categories;
 
 		setLayout(new BorderLayout());
 
@@ -50,6 +52,7 @@ public class RecordDialog extends JDialog {
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
 			addRecordToController();
+			controller.insertIntoDb(record, categories);
 			setVisible(false);
 		});
 	}

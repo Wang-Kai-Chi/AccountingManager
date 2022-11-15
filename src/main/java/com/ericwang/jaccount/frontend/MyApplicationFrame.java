@@ -44,12 +44,13 @@ public class MyApplicationFrame extends JFrame {
     }
 
     private class ManagePanel extends JPanel {
-        private JButton addB, refreshB;
+        private JButton addB, updateB,refreshB;
 
         public ManagePanel() {
             super(new FlowLayout());
 
             addB = new JButton("新增");
+            updateB = new JButton("更新");
             refreshB = new JButton("刷新");
 
             add(addB);
@@ -65,7 +66,6 @@ public class MyApplicationFrame extends JFrame {
             });
 
             refreshB.addActionListener(e -> {
-                controller.insertNewRecordIfIdIsZero(categories);
                 controller.refresh();
                 cashFlowTable.initTable(controller);
             });

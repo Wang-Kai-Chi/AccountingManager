@@ -41,22 +41,14 @@ public class PrettyConsumptionRecordController {
             headers = repo.getHeaders();
         }
     }
-
-    public void insertNewRecordIfIdIsZero(Object[] categories) {
-        if (repo != null) {
-            for (PrettyConsumptionRecord p : recordList) {
-                if (p.getId() == 0) {
-                    try {
-                        SingleConsumptionRecord s = getConsumption(p, categories);
-                        repo.add(s);
-
-                        System.out.println(s);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
+    
+    public void insertIntoDb(PrettyConsumptionRecord record, Object[] categories) {
+    	SingleConsumptionRecord s = getConsumption(record, categories);
+        try {
+			repo.add(s);
+		} catch (SQLException e) {
+			
+		}
     }
 
     public SingleConsumptionRecord getConsumption(PrettyConsumptionRecord p, Object[] categories) {
