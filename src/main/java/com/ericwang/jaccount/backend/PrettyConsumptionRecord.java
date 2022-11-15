@@ -6,6 +6,10 @@ public class PrettyConsumptionRecord {
     private String date;
     private String category;
     private String description;
+    
+    public PrettyConsumptionRecord(int id) {
+    	this.id = id;
+    }
 
     public PrettyConsumptionRecord(int amountOfMoney, String date, String category, String description) {
         this.amountOfMoney = amountOfMoney;

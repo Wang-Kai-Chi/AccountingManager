@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
 
 public class MyApplicationFrame extends JFrame {
@@ -73,6 +74,7 @@ public class MyApplicationFrame extends JFrame {
             });
             
             updateB.addActionListener(e->{
+            	setSelectedRecordToDialog();
             	updateDialog.setVisible(true);
             });
 
@@ -80,6 +82,17 @@ public class MyApplicationFrame extends JFrame {
                 controller.refresh();
                 cashFlowTable.initTable(controller);
             });
+        }
+        
+        private void setSelectedRecordToDialog() {
+        	int id = (int) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 0);
+        	int money = (int) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 1);
+        	String date = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 2);
+        	String category = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 3);
+        	String des = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 4);
+        	
+        	PrettyConsumptionRecord p = new PrettyConsumptionRecord(id,money,date,category,des);
+        	updateDialog.setRecord(p);
         }
     }
 }

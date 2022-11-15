@@ -2,6 +2,7 @@ package com.ericwang.jaccount.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.Iterator;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,7 +16,7 @@ import javax.swing.JTextField;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
 
-public class UpdateDataDialog extends JDialog{
+public class UpdateDataDialog extends JDialog {
 	private JButton acceptB;
 	private PrettyConsumptionRecord record;
 	private JPanel jp;
@@ -46,6 +47,23 @@ public class UpdateDataDialog extends JDialog{
 		setSize(500, 300);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
+	
+	
+
+	public void setRecord(PrettyConsumptionRecord record) {
+		this.record = record;
+		MoneyInput mi = (MoneyInput) jp.getComponent(0);
+		DatePicker dp = (DatePicker) jp.getComponent(1);
+		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
+		Description des = (Description) jp.getComponent(3);
+		
+		mi.setMoney(Integer.toString(record.getAmountOfMoney()));
+		dp.setDate(record.getDate());
+		cp.setCategories(record.getCategory());
+		des.setDescription(record.getDescription());
+	}
+
+
 
 	public void setTable(CashFlowTable table) {
 		this.table = table;
@@ -57,7 +75,7 @@ public class UpdateDataDialog extends JDialog{
 
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
-			
+
 			table.initTable(controller);
 			setVisible(false);
 		});
@@ -104,6 +122,10 @@ public class UpdateDataDialog extends JDialog{
 			textF.setText("");
 		}
 
+		public void setMoney(String s) {
+			textF.setText(s);
+		}
+
 		public int getMoney() {
 			return Integer.parseInt(textF.getText());
 		}
@@ -123,6 +145,14 @@ public class UpdateDataDialog extends JDialog{
 			this.categories = categories;
 			dropDownList = new JComboBox<>(categories);
 			add(dropDownList);
+		}
+
+		public void setCategories(String s) {
+			for (int i = 0; i < categories.length; i++) {
+				if (s.equals(categories[i])) {
+					dropDownList.setSelectedIndex(i);
+				}
+			}
 		}
 
 		public Object[] getCategories() {
@@ -147,6 +177,10 @@ public class UpdateDataDialog extends JDialog{
 			textF = new JTextField();
 			textF.setColumns(25);
 			add(textF);
+		}
+
+		public void setDescription(String s) {
+			textF.setText(s);
 		}
 
 		public void init() {
