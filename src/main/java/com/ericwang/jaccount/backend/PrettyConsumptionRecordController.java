@@ -44,11 +44,12 @@ public class PrettyConsumptionRecordController {
     
     public void insertIntoDb(PrettyConsumptionRecord record, Object[] categories) {
     	SingleConsumptionRecord s = getConsumption(record, categories);
-        try {
-			repo.add(s);
-		} catch (SQLException e) {
-			
-		}
+        repo.add(s);
+    }
+    
+    public void updateDb(PrettyConsumptionRecord record, Object[] categories) {
+    	SingleConsumptionRecord s = getConsumption(record, categories);
+        repo.update(s);
     }
 
     public SingleConsumptionRecord getConsumption(PrettyConsumptionRecord p, Object[] categories) {

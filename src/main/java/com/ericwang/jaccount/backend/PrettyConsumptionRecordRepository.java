@@ -5,75 +5,90 @@ import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
 import java.sql.*;
 
 public class PrettyConsumptionRecordRepository {
-    private ResultSet resultSet;
-    private TableHeaders tableHeaders;
-    private Connection connection;
+	private ResultSet resultSet;
+	private TableHeaders tableHeaders;
+	private Connection connection;
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
 
-    public void query() throws SQLException {
-        String sql = "select consumption.id, consumption.amount_of_money, consumption.date, cc.name as category, consumption.description " +
-                "from single_consumption_record as consumption " +
-                "join consumption_category as cc " +
-                "on consumption.category_id = cc.id;";
+	public void query() throws SQLException {
+		String sql = "select consumption.id, consumption.amount_of_money, consumption.date, cc.name as category, consumption.description "
+				+ "from single_consumption_record as consumption " + "join consumption_category as cc "
+				+ "on consumption.category_id = cc.id;";
 
-        Statement stmt = connection.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-        resultSet = stmt.executeQuery(sql);
+		Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		resultSet = stmt.executeQuery(sql);
 
-        tableHeaders = new TableHeaders(resultSet.getMetaData());
-    }
+		tableHeaders = new TableHeaders(resultSet.getMetaData());
+	}
 
-public void add(SingleConsumptionRecord cfr) throws SQLException {
-        String sql = "INSERT INTO `single_consumption_record`" +
-                " (`amount_of_money`, `date`, `category_id`, `description`) " +
-                "VALUES (?,?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        try {
-            statement.setInt(1,cfr.getAmount_of_money());
-            statement.setString(2, cfr.getDate());
-            statement.setInt(3, cfr.getCategory_id());
-            statement.setString(4, cfr.getDescription());
+	public void add(SingleConsumptionRecord record) {
+		String sql = "INSERT INTO `single_consumption_record`"
+				+ " (`amount_of_money`, `date`, `category_id`, `description`) " + "VALUES (?,?,?,?)";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, record.getAmount_of_money());
+			statement.setString(2, record.getDate());
+			statement.setInt(3, record.getCategory_id());
+			statement.setString(4, record.getDescription());
 
-            int n = statement.executeUpdate();
+			int n = statement.executeUpdate();
 
-            if (n==1)
-                System.out.println("insert a new row");
-            else
-                System.out.println("fail to insert");
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+			if (n == 1)
+				System.out.println("insert a new row");
+			else
+				System.out.println("fail to insert");
+		} catch (SQLException e) {
+		}
+	}
 
-    public int getRows() {
-        try {
-            resultSet.last();
-            return resultSet.getRow();
-        } catch (SQLException e) {
-            return 0;
-        }
-    }
+	public void update(SingleConsumptionRecord record) {
+		String sql = "UPDATE single_consumption_record \r\n"
+				+ "SET `amount_of_money` = ?,`date` = ?,category_id = ?,description = ?\r\n" + "WHERE id = ?;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, record.getAmount_of_money());
+			statement.setString(2, record.getDate());
+			statement.setInt(3, record.getCategory_id());
+			statement.setString(4, record.getDescription());
+			statement.setInt(5, record.getId());
 
-    public int getCols() {
-        return tableHeaders.getHeaders().length;
-    }
+			int n = statement.executeUpdate();
 
-    public String[] getHeaders() {
-        return tableHeaders.getHeaders();
-    }
+			if (n == 1)
+				System.out.println("update complete");
+			else
+				System.out.println("update failed");
+		} catch (SQLException e) {
+		}
+	}
 
-    public String getData(int row, int col) {
-        try {
-            resultSet.absolute(row);
-            return resultSet.getString(col);
-        } catch (SQLException e) {
-            System.out.printf("%d : %d :%s\n", row, col, e);
-            return "no data";
-        }
-    }
+	public int getRows() {
+		try {
+			resultSet.last();
+			return resultSet.getRow();
+		} catch (SQLException e) {
+			return 0;
+		}
+	}
+
+	public int getCols() {
+		return tableHeaders.getHeaders().length;
+	}
+
+	public String[] getHeaders() {
+		return tableHeaders.getHeaders();
+	}
+
+	public String getData(int row, int col) {
+		try {
+			resultSet.absolute(row);
+			return resultSet.getString(col);
+		} catch (SQLException e) {
+			System.out.printf("%d : %d :%s\n", row, col, e);
+			return "no data";
+		}
+	}
 }

@@ -31,3 +31,8 @@ select * from single_consumption_record WHERE month(date) = 10;
 #insert into single_consumption_record
 INSERT INTO `single_consumption_record`(`amount_of_money`, `date`, `category_id`, `description`)
 VALUES (100,'2022-11-14',1,'insert into')
+
+#update single_consumption_record
+UPDATE single_consumption_record 
+SET `amount_of_money` = ?,`date` = ?,category_id = ?,description = ?
+WHERE id = ?;

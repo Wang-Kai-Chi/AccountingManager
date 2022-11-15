@@ -32,7 +32,6 @@ public class UpdateDataDialog extends JDialog {
 
 		jp = new JPanel();
 		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-		// jp.add(new TypePicker());
 		jp.add(new MoneyInput());
 		jp.add(new DatePicker());
 		jp.add(new CategoryPicker(categories));
@@ -47,8 +46,6 @@ public class UpdateDataDialog extends JDialog {
 		setSize(500, 300);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
-	
-	
 
 	public void setRecord(PrettyConsumptionRecord record) {
 		this.record = record;
@@ -56,14 +53,24 @@ public class UpdateDataDialog extends JDialog {
 		DatePicker dp = (DatePicker) jp.getComponent(1);
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
 		Description des = (Description) jp.getComponent(3);
-		
+
 		mi.setMoney(Integer.toString(record.getAmountOfMoney()));
 		dp.setDate(record.getDate());
 		cp.setCategories(record.getCategory());
 		des.setDescription(record.getDescription());
 	}
+	
+	private void updateRecord() {
+		MoneyInput mi = (MoneyInput) jp.getComponent(0);
+		DatePicker dp = (DatePicker) jp.getComponent(1);
+		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
+		Description des = (Description) jp.getComponent(3);
 
-
+		record.setAmountOfMoney(mi.getMoney());
+		record.setDate(dp.getDate());
+		record.setCategory(cp.getCategory());
+		record.setDescription(des.getString());
+	}
 
 	public void setTable(CashFlowTable table) {
 		this.table = table;
@@ -75,32 +82,11 @@ public class UpdateDataDialog extends JDialog {
 
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
-
+			updateRecord();
+			controller.updateDb(record, categories);
 			table.initTable(controller);
 			setVisible(false);
 		});
-	}
-
-	private class TypePicker extends JPanel {
-		JLabel label01;
-		JComboBox<String> dropDownList;
-
-		public TypePicker() {
-			super(new FlowLayout());
-
-			label01 = new JLabel("選擇類型");
-			add(label01);
-
-			String[] content = new String[] { "支出", "收入" };
-			dropDownList = new JComboBox<>(content);
-			dropDownList.setSelectedIndex(0);
-
-			add(dropDownList);
-		}
-
-		public String getType() {
-			return (String) dropDownList.getSelectedItem();
-		}
 	}
 
 	private class MoneyInput extends JPanel {
