@@ -74,7 +74,7 @@ public class InsertDataDialog extends JDialog {
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
 		Description des = (Description) jp.getComponent(3);
 
-		record = new PrettyConsumptionRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
+		record = new PrettyConsumptionRecord(dp.getDate(),mi.getMoney(), cp.getCategory(), des.getString());
 
 		controller.getRecordList().add(record);
 

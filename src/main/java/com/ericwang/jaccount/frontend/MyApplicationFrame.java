@@ -78,10 +78,11 @@ public class MyApplicationFrame extends JFrame {
 
 			deleteB.addActionListener(e -> {
 				try {
-					int check = JOptionPane.showConfirmDialog(this, "確定要刪除這筆資料嗎", "刪除", JOptionPane.DEFAULT_OPTION);
+					int check = JOptionPane.showConfirmDialog(this, "確定要刪除這筆資料嗎", "刪除", 
+							JOptionPane.DEFAULT_OPTION);
 					
 					if (check == JOptionPane.YES_OPTION) {
-						controller.deleteFromDb(getRecordFromSelectedRow());
+						controller.deleteFromDb(getRecordFromController());
 						cashFlowTable.initTable(controller);
 					}
 				} catch (Exception e1) {
@@ -91,7 +92,7 @@ public class MyApplicationFrame extends JFrame {
 
 			updateB.addActionListener(e -> {
 				try {
-					updateDialog.setRecord(getRecordFromSelectedRow());
+					updateDialog.setRecord(getRecordFromController());
 					updateDialog.setVisible(true);
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(this, "請先選擇資料");
@@ -103,15 +104,9 @@ public class MyApplicationFrame extends JFrame {
 				cashFlowTable.initTable(controller);
 			});
 		}
-
-		private PrettyConsumptionRecord getRecordFromSelectedRow() {
-			int id = (int) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 0);
-			int money = (int) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 1);
-			String date = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 2);
-			String category = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 3);
-			String des = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 4);
-
-			return new PrettyConsumptionRecord(id, money, date, category, des);
+		
+		private PrettyConsumptionRecord getRecordFromController() {
+			return controller.getRecordList().get(cashFlowTable.getSelectedRow());
 		}
 	}
 }

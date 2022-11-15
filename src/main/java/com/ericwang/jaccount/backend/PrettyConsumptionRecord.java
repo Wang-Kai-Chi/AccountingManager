@@ -2,8 +2,8 @@ package com.ericwang.jaccount.backend;
 
 public class PrettyConsumptionRecord {
     private int id;
-    private int amountOfMoney;
     private String date;
+    private int amountOfMoney;
     private String category;
     private String description;
     
@@ -11,14 +11,14 @@ public class PrettyConsumptionRecord {
     	this.id = id;
     }
 
-    public PrettyConsumptionRecord(int amountOfMoney, String date, String category, String description) {
+    public PrettyConsumptionRecord(String date,int amountOfMoney, String category, String description) {
         this.amountOfMoney = amountOfMoney;
         this.date = date;
         this.category = category;
         this.description = description;
     }
 
-    public PrettyConsumptionRecord(int id, int amountOfMoney, String date, String category, String description) {
+    public PrettyConsumptionRecord(int id, String date,int amountOfMoney, String category, String description) {
         this.id = id;
         this.amountOfMoney = amountOfMoney;
         this.date = date;
