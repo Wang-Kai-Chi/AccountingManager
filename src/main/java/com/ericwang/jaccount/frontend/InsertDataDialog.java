@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -61,10 +62,14 @@ public class InsertDataDialog extends JDialog {
 
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
-			addRecordToController();
-			controller.insertIntoDb(record, categories);
-			table.initTable(controller);
-			setVisible(false);
+			try {
+				addRecordToController();
+				controller.insertIntoDb(record, categories);
+				table.initTable(controller);
+				setVisible(false);
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(this, "你沒有完成填寫");
+			}
 		});
 	}
 
@@ -74,7 +79,7 @@ public class InsertDataDialog extends JDialog {
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
 		Description des = (Description) jp.getComponent(3);
 
-		record = new PrettyConsumptionRecord(dp.getDate(),mi.getMoney(), cp.getCategory(), des.getString());
+		record = new PrettyConsumptionRecord(dp.getDate(), mi.getMoney(), cp.getCategory(), des.getString());
 
 		controller.getRecordList().add(record);
 

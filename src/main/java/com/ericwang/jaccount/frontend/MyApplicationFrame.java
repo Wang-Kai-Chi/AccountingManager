@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,6 +14,7 @@ import javax.swing.JScrollPane;
 
 import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.frontend.widget.CategoryPicker;
 import com.ericwang.jaccount.frontend.widget.DatePicker;
 
 public class MyApplicationFrame extends JFrame {
@@ -44,7 +46,7 @@ public class MyApplicationFrame extends JFrame {
 
 		initDialog();
 		
-		SearchPanel searchPanel = new SearchPanel();
+		SearchPanel searchPanel = new SearchPanel(categories);
 		add(searchPanel, BorderLayout.EAST);
 
 		setSize(800, 480);
@@ -133,22 +135,27 @@ public class MyApplicationFrame extends JFrame {
 	
 	private class SearchPanel extends JPanel{
 		private JPanel jPanel;
-		private DatePicker datePicker;
+		private JLabel title;
 		private JButton confirmB;
 		
-		public SearchPanel() {
+		public SearchPanel(Object[] categories) {
 			super(new BorderLayout());
 			
 			jPanel = new JPanel();
 			jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
-			datePicker = new DatePicker();
+			DatePicker datePicker = new DatePicker();
 			datePicker.getLabel().setText("查詢日期");
 			
 			jPanel.add(datePicker);
+			jPanel.add(new JCheckBox("同月"));
+			jPanel.add(new JCheckBox("同年"));
+			jPanel.add(new CategoryPicker(categories));
 			
+			title = new JLabel("Search: ");
 			confirmB = new JButton("start");
 			
-			add(jPanel, BorderLayout.NORTH);
+			add(jPanel, BorderLayout.CENTER);
+			add(title, BorderLayout.NORTH);
 			add(confirmB, BorderLayout.SOUTH);
 		}
 	}
