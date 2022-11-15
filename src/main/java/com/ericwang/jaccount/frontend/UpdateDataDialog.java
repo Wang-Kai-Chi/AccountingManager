@@ -76,17 +76,6 @@ public class UpdateDataDialog extends JDialog {
 		record.setCategory(cp.getCategory());
 		record.setDescription(des.getString());
 	}
-	
-	private void updateController() {
-		ArrayList<PrettyConsumptionRecord> list = controller.getRecordList();
-		
-		for(int i =0;i<list.size();i++) {
-			if(list.get(i).getId() == record.getId()) {
-				list.remove(i);
-				list.add(record);
-			}
-		}
-	}
 
 	public void setTable(CashFlowTable table) {
 		this.table = table;
@@ -99,7 +88,6 @@ public class UpdateDataDialog extends JDialog {
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
 			updateRecord();
-			updateController();
 			controller.updateDb(record, categories);
 			table.initTable(controller);
 			setVisible(false);

@@ -64,6 +64,22 @@ public class PrettyConsumptionRecordRepository {
 		} catch (SQLException e) {
 		}
 	}
+	
+	public void delete(PrettyConsumptionRecord record) {
+		String sql = "DELETE FROM single_consumption_record WHERE id = ?;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, record.getId());
+
+			boolean b = statement.execute();
+
+			if (b)
+				System.out.println("delete failed");
+			else
+				System.out.println("delete complete");
+		} catch (SQLException e) {
+		}
+	}
 
 	public int getRows() {
 		try {

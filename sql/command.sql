@@ -36,3 +36,6 @@ VALUES (100,'2022-11-14',1,'insert into')
 UPDATE single_consumption_record 
 SET `amount_of_money` = ?,`date` = ?,category_id = ?,description = ?
 WHERE id = ?;
+
+#delete
+DELETE FROM single_consumption_record WHERE id = ?;

@@ -51,7 +51,7 @@ public class MyApplicationFrame extends JFrame {
     }
 
     private class ManagePanel extends JPanel {
-        private JButton addB, updateB,refreshB;
+        private JButton addB, updateB, deleteB, refreshB;
 
         public ManagePanel() {
             super(new FlowLayout());
@@ -59,9 +59,11 @@ public class MyApplicationFrame extends JFrame {
             addB = new JButton("新增");
             updateB = new JButton("更新");
             refreshB = new JButton("刷新");
+            deleteB = new JButton("刪除");
 
             add(addB);
             add(updateB);
+            add(deleteB);
             add(refreshB);
 
             setActionListeners();
@@ -73,8 +75,13 @@ public class MyApplicationFrame extends JFrame {
                 cashFlowTable.add();
             });
             
+            deleteB.addActionListener(e->{
+            	controller.deleteFromDb(getRecordFromSelectedRow());
+            	cashFlowTable.initTable(controller);
+            });
+            
             updateB.addActionListener(e->{
-            	setSelectedRecordToDialog();
+            	updateDialog.setRecord(getRecordFromSelectedRow());
             	updateDialog.setVisible(true);
             });
 
@@ -84,15 +91,14 @@ public class MyApplicationFrame extends JFrame {
             });
         }
         
-        private void setSelectedRecordToDialog() {
+        private PrettyConsumptionRecord getRecordFromSelectedRow() {
         	int id = (int) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 0);
         	int money = (int) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 1);
         	String date = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 2);
         	String category = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 3);
         	String des = (String) cashFlowTable.getValueAt(cashFlowTable.getSelectedRow(), 4);
         	
-        	PrettyConsumptionRecord p = new PrettyConsumptionRecord(id,money,date,category,des);
-        	updateDialog.setRecord(p);
+        	return new PrettyConsumptionRecord(id,money,date,category,des);
         }
     }
 }
