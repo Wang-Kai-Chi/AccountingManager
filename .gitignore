@@ -1,8 +1,11 @@
 *.class
 
+bin
 .classpath
 .project
 *.iml
 
 build
 .gradle
+
+.idea
