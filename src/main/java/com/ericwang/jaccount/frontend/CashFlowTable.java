@@ -23,17 +23,17 @@ public class CashFlowTable extends JTable {
 	}
 	
 	public void initTable(PrettyConsumptionRecordController controller) {
-		tableModel.setColumnIdentifiers(controller.getHeaders());
+		tableModel.setColumnIdentifiers(headers);
 		tableModel.setRowCount(controller.getRecordList().size());
-		tableModel.setColumnCount(controller.getHeaders().length);
+		tableModel.setColumnCount(headers.length);
 		
 		for (int i = 0; i < controller.getRecordList().size(); i++) {
 			PrettyConsumptionRecord c = controller.getRecordList().get(i);
-			tableModel.setValueAt(c.getId(),i, 0);
-			tableModel.setValueAt(c.getDate(), i, 1);
-			tableModel.setValueAt(c.getAmountOfMoney(), i, 2);
-			tableModel.setValueAt(c.getCategory(), i, 3);
-			tableModel.setValueAt(c.getDescription(), i, 4);
+			//tableModel.setValueAt(c.getId(),i, 0);
+			tableModel.setValueAt(c.getDate(), i, 0);
+			tableModel.setValueAt(c.getAmountOfMoney(), i, 1);
+			tableModel.setValueAt(c.getCategory(), i, 2);
+			tableModel.setValueAt(c.getDescription(), i, 3);
 
 		}
 	}
