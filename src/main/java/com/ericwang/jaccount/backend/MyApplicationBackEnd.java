@@ -27,7 +27,7 @@ public class MyApplicationBackEnd {
         prettyConsumptionRecordCon = new PrettyConsumptionRecordController(prettyConsumptionRecordRepo);
     }
 
-    public void refresh() {
+	public void refresh() {
         consumptionCategoryCon.refresh();
         prettyConsumptionRecordCon.refresh();
     }

@@ -1,5 +1,6 @@
 package com.ericwang.jaccount;
 
+
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategory;
@@ -39,7 +40,7 @@ public class Main {
 		for (ConsumptionCategory c : consumptionCategoryController.getRecordList())
 			categories.add(c.getName());
 
-        @SuppressWarnings("unused")
+		@SuppressWarnings("unused")
         MyApplicationFrame myApplicationFrame =
                 new MyApplicationFrame(prettyConsumptionRecordController, categories.toArray());
     }
