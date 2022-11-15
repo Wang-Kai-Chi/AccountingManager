@@ -1,4 +1,4 @@
-package com.ericwang.jaccount.frontend;
+package com.ericwang.jaccount.frontend.widget;
 
 import java.awt.FlowLayout;
 import java.text.ParseException;

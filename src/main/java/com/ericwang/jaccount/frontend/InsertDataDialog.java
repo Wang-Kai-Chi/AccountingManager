@@ -14,6 +14,10 @@ import javax.swing.JTextField;
 
 import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
+import com.ericwang.jaccount.frontend.widget.CategoryPicker;
+import com.ericwang.jaccount.frontend.widget.DatePicker;
+import com.ericwang.jaccount.frontend.widget.Description;
+import com.ericwang.jaccount.frontend.widget.MoneyInput;
 
 public class InsertDataDialog extends JDialog {
 	private JButton acceptB;
@@ -77,100 +81,5 @@ public class InsertDataDialog extends JDialog {
 		mi.init();
 		dp.init();
 		des.init();
-	}
-
-	private class TypePicker extends JPanel {
-		JLabel label01;
-		JComboBox<String> dropDownList;
-
-		public TypePicker() {
-			super(new FlowLayout());
-
-			label01 = new JLabel("選擇類型");
-			add(label01);
-
-			String[] content = new String[] { "支出", "收入" };
-			dropDownList = new JComboBox<>(content);
-			dropDownList.setSelectedIndex(0);
-
-			add(dropDownList);
-		}
-
-		public String getType() {
-			return (String) dropDownList.getSelectedItem();
-		}
-	}
-
-	private class MoneyInput extends JPanel {
-		JLabel label01;
-		JTextField textF;
-
-		public MoneyInput() {
-			super(new FlowLayout());
-
-			label01 = new JLabel("金額");
-			add(label01);
-
-			textF = new JTextField();
-			textF.setColumns(15);
-			add(textF);
-		}
-
-		public void init() {
-			textF.setText("");
-		}
-
-		public int getMoney() {
-			return Integer.parseInt(textF.getText());
-		}
-	}
-
-	private class CategoryPicker extends JPanel {
-		JLabel label01;
-		JComboBox<Object> dropDownList;
-		Object[] categories;
-
-		public CategoryPicker(Object[] categories) {
-			super(new FlowLayout());
-
-			label01 = new JLabel("類別");
-			add(label01);
-
-			this.categories = categories;
-			dropDownList = new JComboBox<>(categories);
-			add(dropDownList);
-		}
-
-		public Object[] getCategories() {
-			return categories;
-		}
-
-		public String getCategory() {
-			return (String) dropDownList.getSelectedItem();
-		}
-	}
-
-	private class Description extends JPanel {
-		JLabel label01;
-		JTextField textF;
-
-		public Description() {
-			super(new FlowLayout());
-
-			label01 = new JLabel("備註");
-			add(label01);
-
-			textF = new JTextField();
-			textF.setColumns(25);
-			add(textF);
-		}
-
-		public void init() {
-			textF.setText("");
-		}
-
-		public String getString() {
-			return textF.getText();
-		}
 	}
 }
