@@ -30,7 +30,7 @@ public class MyApplicationFrame extends JFrame {
         JScrollPane jsp = new JScrollPane(cashFlowTable);
         add(jsp, BorderLayout.CENTER);
 
-        ManagePanel managePanel = new ManagePanel(this);
+        ManagePanel managePanel = new ManagePanel();
         add(managePanel, BorderLayout.SOUTH);
 
         sumLabel = new JLabel();
@@ -67,12 +67,10 @@ public class MyApplicationFrame extends JFrame {
     }
 
     private class ManagePanel extends JPanel {
-        private final MyApplicationFrame myApplicationFrame;
         private JButton addB, updateB, deleteB, refreshB;
 
-        public ManagePanel(MyApplicationFrame myApplicationFrame) {
+        public ManagePanel() {
             super(new FlowLayout());
-            this.myApplicationFrame = myApplicationFrame;
 
             addB = new JButton("新增");
             updateB = new JButton("更新");
@@ -89,9 +87,9 @@ public class MyApplicationFrame extends JFrame {
 
         private void setActionListeners() {
             addB.addActionListener(e -> {
-                myApplicationFrame.insertDialog.setVisible(true);
-                myApplicationFrame.cashFlowTable.add();
-                myApplicationFrame.initSumLabel();
+                insertDialog.setVisible(true);
+                cashFlowTable.add();
+                initSumLabel();
             });
 
             deleteB.addActionListener(e -> {
@@ -99,8 +97,8 @@ public class MyApplicationFrame extends JFrame {
                     int check = JOptionPane.showConfirmDialog(this, "確定要刪除這筆資料嗎", "刪除", JOptionPane.DEFAULT_OPTION);
 
                     if (check == JOptionPane.YES_OPTION) {
-                        myApplicationFrame.controller.deleteFromDb(getRecordFromController());
-                        myApplicationFrame.cashFlowTable.initTable(myApplicationFrame.controller);
+                        controller.deleteFromDb(getRecordFromController());
+                        cashFlowTable.initTable(controller);
                     }
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "請先選擇資料");
@@ -109,22 +107,22 @@ public class MyApplicationFrame extends JFrame {
 
             updateB.addActionListener(e -> {
                 try {
-                    myApplicationFrame.updateDialog.setRecord(getRecordFromController());
-                    myApplicationFrame.updateDialog.setVisible(true);
+                    updateDialog.setRecord(getRecordFromController());
+                    updateDialog.setVisible(true);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "請先選擇資料");
                 }
             });
 
             refreshB.addActionListener(e -> {
-                myApplicationFrame.controller.refresh();
-                myApplicationFrame.cashFlowTable.initTable(myApplicationFrame.controller);
-                myApplicationFrame.initSumLabel();
+                controller.getFromDb();
+                cashFlowTable.initTable(controller);
+                initSumLabel();
             });
         }
 
         private PrettyConsumptionRecord getRecordFromController() {
-            return myApplicationFrame.controller.getRecordList().get(myApplicationFrame.cashFlowTable.getSelectedRow());
+            return controller.getRecordList().get(cashFlowTable.getSelectedRow());
         }
     }
 
@@ -153,6 +151,15 @@ public class MyApplicationFrame extends JFrame {
             add(jPanel, BorderLayout.CENTER);
             add(title, BorderLayout.NORTH);
             add(confirmB, BorderLayout.SOUTH);
+
+            setActionListener();
+        }
+
+        private void setActionListener(){
+            confirmB.addActionListener(e->{
+                controller.getFromDb();
+                cashFlowTable.initTable(controller);
+            });
         }
 
         public SearchSet getSearchSet() {

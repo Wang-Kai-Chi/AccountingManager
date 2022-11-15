@@ -29,7 +29,7 @@ public class MyApplicationBackEnd {
 
 	public void refresh() {
         consumptionCategoryCon.refresh();
-        prettyConsumptionRecordCon.refresh();
+        prettyConsumptionRecordCon.getFromDb();
     }
 
     public void printData() {

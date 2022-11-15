@@ -19,6 +19,10 @@ public class PrettyConsumptionRecordRepository {
 				+ "from single_consumption_record as consumption " + "join consumption_category as cc "
 				+ "on consumption.category_id = cc.id;";
 
+		query(sql);
+	}
+
+	public void query(String sql) throws SQLException {
 		Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		resultSet = stmt.executeQuery(sql);
 
