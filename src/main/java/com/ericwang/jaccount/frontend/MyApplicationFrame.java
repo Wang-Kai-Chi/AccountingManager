@@ -12,7 +12,8 @@ import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
 
 public class MyApplicationFrame extends JFrame {
     private CashFlowTable cashFlowTable;
-    private RecordDialog dialog;
+    private InsertDataDialog insertDialog;
+    private UpdateDataDialog updateDialog;
     private PrettyConsumptionRecordController controller;
     private Object[] categories;
 
@@ -39,8 +40,13 @@ public class MyApplicationFrame extends JFrame {
     }
 
     private void initDialog() {
-        dialog = new RecordDialog(this, categories);
-        dialog.setController(controller);
+        insertDialog = new InsertDataDialog(this, categories);
+        insertDialog.setController(controller);
+        insertDialog.setTable(cashFlowTable);
+        
+        updateDialog = new UpdateDataDialog(this, categories);
+        updateDialog.setController(controller);
+        updateDialog.setTable(cashFlowTable);
     }
 
     private class ManagePanel extends JPanel {
@@ -54,6 +60,7 @@ public class MyApplicationFrame extends JFrame {
             refreshB = new JButton("刷新");
 
             add(addB);
+            add(updateB);
             add(refreshB);
 
             setActionListeners();
@@ -61,8 +68,12 @@ public class MyApplicationFrame extends JFrame {
 
         private void setActionListeners() {
             addB.addActionListener(e -> {
-                dialog.setVisible(true);
+                insertDialog.setVisible(true);
                 cashFlowTable.add();
+            });
+            
+            updateB.addActionListener(e->{
+            	updateDialog.setVisible(true);
             });
 
             refreshB.addActionListener(e -> {

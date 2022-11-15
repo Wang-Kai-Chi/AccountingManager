@@ -15,13 +15,15 @@ import javax.swing.JTextField;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecord;
 import com.ericwang.jaccount.backend.PrettyConsumptionRecordController;
 
-public class RecordDialog extends JDialog {
+public class UpdateDataDialog extends JDialog{
 	private JButton acceptB;
 	private PrettyConsumptionRecord record;
 	private JPanel jp;
 	private PrettyConsumptionRecordController controller;
 	private Object[] categories;
-	public RecordDialog(JFrame frame, Object[] categories) {
+	private CashFlowTable table;
+
+	public UpdateDataDialog(JFrame frame, Object[] categories) {
 		super(frame, "新增資料");
 		this.categories = categories;
 
@@ -29,7 +31,7 @@ public class RecordDialog extends JDialog {
 
 		jp = new JPanel();
 		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-		//jp.add(new TypePicker());
+		// jp.add(new TypePicker());
 		jp.add(new MoneyInput());
 		jp.add(new DatePicker());
 		jp.add(new CategoryPicker(categories));
@@ -45,31 +47,20 @@ public class RecordDialog extends JDialog {
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
 
+	public void setTable(CashFlowTable table) {
+		this.table = table;
+	}
+
 	public void setController(PrettyConsumptionRecordController controller) {
 		this.controller = controller;
 	}
 
 	private void setActionListener() {
 		acceptB.addActionListener(e -> {
-			addRecordToController();
-			controller.insertIntoDb(record, categories);
+			
+			table.initTable(controller);
 			setVisible(false);
 		});
-	}
-
-	private void addRecordToController() {
-		MoneyInput mi = (MoneyInput) jp.getComponent(0);
-		DatePicker dp = (DatePicker) jp.getComponent(1);
-		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
-		Description des = (Description) jp.getComponent(3);
-
-		record = new PrettyConsumptionRecord(mi.getMoney(), dp.getDate(), cp.getCategory(), des.getString());
-
-		controller.getRecordList().add(record);
-
-		mi.init();
-		dp.init();
-		des.init();
 	}
 
 	private class TypePicker extends JPanel {
@@ -108,7 +99,7 @@ public class RecordDialog extends JDialog {
 			textF.setColumns(15);
 			add(textF);
 		}
-		
+
 		public void init() {
 			textF.setText("");
 		}
@@ -157,7 +148,7 @@ public class RecordDialog extends JDialog {
 			textF.setColumns(25);
 			add(textF);
 		}
-		
+
 		public void init() {
 			textF.setText("");
 		}
