@@ -1,5 +1,6 @@
 package com.ericwang.jaccount.backend.pcr;
 
+import com.ericwang.jaccount.backend.SearchSet;
 import com.ericwang.jaccount.backend.TableHeaders;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
 
@@ -27,6 +28,21 @@ public class PrettyConsumptionRecordRepository {
 		resultSet = stmt.executeQuery(sql);
 
 		tableHeaders = new TableHeaders(resultSet.getMetaData());
+	}
+	
+	public void query(String sql, String s) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, s);
+		
+		boolean b = statement.execute();
+	}
+	
+	public void query(String sql, String date, String category) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, date);
+		statement.setString(2, category);
+		
+		boolean b = statement.execute();
 	}
 
 	public void add(SingleConsumptionRecord record) {

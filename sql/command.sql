@@ -96,5 +96,15 @@ select consumption.id, consumption.amount_of_money, consumption.date as date, cc
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
-WHERE cc.name = (SELECT consumption_category.name from consumption_category where name = 'education')
+WHERE cc.name = (SELECT consumption_category.name from consumption_category where name = ?)
+ORDER BY date
+
+--#select the data from same year and category
+SET @selected_date := ?;
+
+select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+from single_consumption_record as consumption
+join consumption_category as cc
+on consumption.category_id = cc.id
+WHERE YEAR(date) = YEAR(@selected_date) AND cc.name = (SELECT consumption_category.name from consumption_category where name = ?)
 ORDER BY date

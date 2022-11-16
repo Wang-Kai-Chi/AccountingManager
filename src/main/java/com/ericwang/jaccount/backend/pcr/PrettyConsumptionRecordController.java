@@ -43,6 +43,18 @@ public class PrettyConsumptionRecordController {
             }
         }
     }
+    
+    public void getFromDb(String sql, String s) {
+        if (repo != null) {
+            try {
+                repo.query(sql, s);
+                refreshList();
+                System.out.println("get data from db: success");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void refreshList() {
         recordList.clear();

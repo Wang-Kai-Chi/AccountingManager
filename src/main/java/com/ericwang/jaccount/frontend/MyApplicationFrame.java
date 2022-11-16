@@ -132,9 +132,12 @@ public class MyApplicationFrame extends JFrame {
 		private JPanel jPanel;
 		private JLabel title;
 		private JButton confirmB;
+		private SearchSetAnalyst analyst;
 
 		public SearchPanel(Object[] categories) {
 			super(new BorderLayout());
+
+			analyst = new SearchSetAnalyst();
 
 			jPanel = new JPanel();
 			jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
@@ -159,9 +162,17 @@ public class MyApplicationFrame extends JFrame {
 
 		private void setActionListener() {
 			confirmB.addActionListener(e -> {
-				controller.getFromDb();
+				runAnalyst();
+				controller.getFromDb(analyst.getSql(), analyst.getSearchSet().getDate());
 				cashFlowTable.initTable(controller);
 			});
+		}
+		
+		private void runAnalyst() {
+			analyst.setSearchSet(getSearchSet());
+			analyst.analyze();
+			System.out.println(analyst.getCursor());
+			
 		}
 
 		public SearchSet getSearchSet() {
@@ -182,12 +193,13 @@ class SearchSetAnalyst {
 	private String sql;
 	private HashMap<String, String> sqlMap;
 	private String[] keys;
+	private String cursor;
 
 	public SearchSetAnalyst() {
 		sqlMap = new HashMap();
 
 		keys = new String[] { "same day", "same month", "same month and same year", "same month and year and category",
-				"category", "same year", "same month and category" };
+				"category", "same year", "same month and category", "same year and category" };
 
 		SqlCommandCollection command = new SqlCommandCollection();
 		sqlMap.put(keys[0], command.sameday);
@@ -197,39 +209,49 @@ class SearchSetAnalyst {
 		sqlMap.put(keys[4], command.category);
 		sqlMap.put(keys[5], command.sameYear);
 		sqlMap.put(keys[6], command.sameMonthNcategory);
+		sqlMap.put(keys[7], command.sameYearNCategory);
 	}
 
 	public String getSql() {
-		return sql;
+		return sqlMap.get(cursor);
 	}
 
 	public void setSearchSet(SearchSet searchSet) {
 		this.searchSet = searchSet;
 	}
+	
+	
 
-	public void analyze() {
-		if (searchSet.getDate()!=null) {
-			if(searchSet.isSameMonth()){
-				if(searchSet.isSameYear()){
-					if (searchSet.isCategory()) {
-						sql = sqlMap.get(keys[6]);
-					}else
-						sql = sqlMap.get(keys[2]);
-				}
-				if (searchSet.isCategory()) {
-					sql = sqlMap.get(keys[6]);
-				}
-			}
-			else if (searchSet.isSameYear()) {
-				
-			} 
-			else if(searchSet.isCategory()) {
-				sql = sqlMap.get(keys[4]);
-			}
-		}
-		else if(searchSet.isCategory()) {
-			
-		}
+	public SearchSet getSearchSet() {
+		return searchSet;
 	}
 
+	public String getCursor() {
+		return cursor;
+	}
+
+	public void analyze() {
+		if (searchSet.isSameMonth()) {
+			if (searchSet.isSameYear()) {
+				if (searchSet.isCategory()) {
+					cursor = keys[3];
+				} else {
+					cursor = keys[2];
+				}
+			} else if (searchSet.isCategory())
+				cursor = keys[6];
+			else
+				cursor = keys[1];
+		} else if (searchSet.isSameYear()) {
+			if (searchSet.isCategory())
+				cursor = keys[7];
+			else {
+				cursor = keys[5];
+			}
+		} else if (searchSet.isCategory()) {
+			cursor = keys[4];
+		} else {
+			cursor = keys[0];
+		}
+	}
 }
