@@ -11,6 +11,7 @@ public class SqlCommandCollection {
 			+ "on consumption.category_id = cc.id\r\n"
 			+ "WHERE date = ?\r\n"
 			+ "ORDER BY date";
+	
 	public static String sameMonth = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description\r\n"
 			+ "from single_consumption_record as consumption\r\n"
 			+ "join consumption_category as cc\r\n"
@@ -46,13 +47,11 @@ public class SqlCommandCollection {
 			+ "WHERE YEAR(date) = YEAR(?)\r\n"
 			+ "ORDER BY date";
 	
-	public static String sameMonthNcategory = "SET @selected_date := ?;\r\n"
-			+ "\r\n"
-			+ "select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description\r\n"
+	public static String sameMonthNcategory = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description\r\n"
 			+ "from single_consumption_record as consumption\r\n"
 			+ "join consumption_category as cc\r\n"
 			+ "on consumption.category_id = cc.id\r\n"
-			+ "WHERE MONTH(date) = MONTH(@selected_date) AND cc.name = (SELECT consumption_category.name from consumption_category where name = ?)\r\n"
+			+ "WHERE MONTH(date) = MONTH(?) AND cc.name = (SELECT consumption_category.name from consumption_category where name = ?)\r\n"
 			+ "ORDER BY date";
 	
 	public static String sameYearNCategory = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description\r\n"
