@@ -37,7 +37,7 @@ public class PrettyConsumptionRecordController {
             try {
                 repo.query(sql);
                 refreshList();
-                System.out.println("get date from db: success");
+                System.out.println("get data from db: success");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
