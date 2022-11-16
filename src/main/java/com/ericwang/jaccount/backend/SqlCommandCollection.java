@@ -1,13 +1,11 @@
 package com.ericwang.jaccount.backend;
 
 public class SqlCommandCollection {
-	public static String sameday = "SET @selected_date := ?;\r\n"
-			+ "\r\n"
-			+ "select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description\r\n"
+	public static String sameday = "select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description\r\n"
 			+ "from single_consumption_record as consumption\r\n"
 			+ "join consumption_category as cc\r\n"
 			+ "on consumption.category_id = cc.id\r\n"
-			+ "WHERE date = @selected_date\r\n"
+			+ "WHERE date = ?\r\n"
 			+ "ORDER BY date";
 	public static String sameMonth = "SET @selected_date := ?;\r\n"
 			+ "\r\n"

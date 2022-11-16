@@ -8,7 +8,7 @@ VALUES (100,'2022-11-01',1,''),
 (180,'2022-11-03',1,'');
 
 --#join single_consumption_record and consumption_category
-select consumption.id, consumption.amount_of_money, consumption.date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id;
@@ -41,58 +41,48 @@ WHERE id = ?;
 DELETE FROM single_consumption_record WHERE id = ?;
 
 --#select the data from same day
-SET @selected_date := '2022-11-15';
-
-select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
-WHERE date = @selected_date
+WHERE date = ?
 ORDER BY date
 
 
 --#select the data from same month
-SET @selected_date := ?;
-
-select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
-WHERE MONTH(date) = MONTH(@selected_date)
+WHERE MONTH(date) = MONTH(?)
 ORDER BY date
 
 --#select the data from same month and same year
-SET @selected_date := ?;
-
-select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
-WHERE MONTH(date) = MONTH(@selected_date) AND YEAR(date) = YEAR(@selected_date)
+WHERE MONTH(date) = MONTH(?) AND YEAR(date) = YEAR(?)
 ORDER BY date
 
 --#select the data from same month, same year and same category
-SET @selected_date := ?;
-
-select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
-WHERE MONTH(date) = MONTH(@selected_date) AND YEAR(date) = YEAR(@selected_date) AND cc.name = (SELECT consumption_category.name from consumption_category where name = ?)
+WHERE MONTH(date) = MONTH(?) AND YEAR(date) = YEAR(?) AND cc.name = (SELECT consumption_category.name from consumption_category where name = ?)
 ORDER BY date
 
 --#select the data from same year
-SET @selected_date := ?;
-
-select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
-WHERE YEAR(date) = YEAR(@selected_date)
+WHERE YEAR(date) = YEAR(?)
 ORDER BY date
 
 --#select the data from a category
-select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
@@ -100,11 +90,9 @@ WHERE cc.name = (SELECT consumption_category.name from consumption_category wher
 ORDER BY date
 
 --#select the data from same year and category
-SET @selected_date := ?;
-
-select consumption.id, consumption.amount_of_money, consumption.date as date, cc.name as category, consumption.description
+select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description
 from single_consumption_record as consumption
 join consumption_category as cc
 on consumption.category_id = cc.id
-WHERE YEAR(date) = YEAR(@selected_date) AND cc.name = (SELECT consumption_category.name from consumption_category where name = ?)
+WHERE YEAR(date) = YEAR(?) AND cc.name = (SELECT consumption_category.name from consumption_category where name = ?)
 ORDER BY date

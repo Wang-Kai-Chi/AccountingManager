@@ -31,10 +31,19 @@ public class PrettyConsumptionRecordRepository {
 	}
 	
 	public void query(String sql, String s) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, s);
+		String sameday = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description\r\n"
+				+ "from single_consumption_record as consumption\r\n"
+				+ "join consumption_category as cc\r\n"
+				+ "on consumption.category_id = cc.id\r\n"
+				+ "WHERE date = ?\r\n"
+				+ "ORDER BY date";
+		PreparedStatement pstmt = connection.prepareStatement(sameday,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		pstmt.setString(1, s); 
 		
-		boolean b = statement.execute();
+		resultSet = pstmt.executeQuery();
+		while(resultSet.next()) {
+			System.out.println(resultSet.getString("date"));
+		}
 	}
 	
 	public void query(String sql, String date, String category) throws SQLException {
