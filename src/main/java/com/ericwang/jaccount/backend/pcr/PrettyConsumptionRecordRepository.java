@@ -1,6 +1,7 @@
 package com.ericwang.jaccount.backend.pcr;
 
 import com.ericwang.jaccount.backend.SearchSet;
+import com.ericwang.jaccount.backend.SqlCommandCollection;
 import com.ericwang.jaccount.backend.TableHeaders;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
 
@@ -29,6 +30,36 @@ public class PrettyConsumptionRecordRepository {
 
 		tableHeaders = new TableHeaders(resultSet.getMetaData());
 	}
+	
+	public void search(String sql, SearchSet searchSet) throws SQLException {
+		PreparedStatement pstmt = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+		SqlCommandCollection commands = new SqlCommandCollection();
+		
+		if(sql.equals(commands.sameday)||sql.equals(commands.sameMonth)||sql.equals(commands.sameYear)) {
+			pstmt.setString(1, searchSet.getDate());			
+		}
+		else if(sql.equals(commands.sameMonthNYear)) {
+			pstmt.setString(1, searchSet.getDate());
+			pstmt.setString(2, searchSet.getDate());
+		}
+		else if(sql.equals(commands.sameMonthNcategory)||sql.equals(commands.sameYearNCategory)) {
+			pstmt.setString(1, searchSet.getDate());
+			pstmt.setString(2, searchSet.getCategory());
+		}
+		else if(sql.equals(commands.sameMonthNYearNCategory)) {
+			pstmt.setString(1, searchSet.getDate());
+			pstmt.setString(2, searchSet.getDate());
+			pstmt.setString(3, searchSet.getCategory());			
+		}
+		else if (sql.equals(commands.category)) {
+			pstmt.setString(1, searchSet.getCategory());
+		}
+		else {
+			System.out.println("search error");
+		}
+		resultSet = pstmt.executeQuery();
+	}
 
 	public void query(String sql, String s) throws SQLException {
 		PreparedStatement pstmt = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -36,14 +67,6 @@ public class PrettyConsumptionRecordRepository {
 		pstmt.setString(1, s);
 
 		resultSet = pstmt.executeQuery();
-	}
-
-	public void query(String sql, String date, String category) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, date);
-		statement.setString(2, category);
-
-		boolean b = statement.execute();
 	}
 
 	public void add(SingleConsumptionRecord record) {

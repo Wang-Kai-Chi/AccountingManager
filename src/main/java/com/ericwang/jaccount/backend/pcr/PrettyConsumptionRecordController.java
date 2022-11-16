@@ -1,5 +1,6 @@
 package com.ericwang.jaccount.backend.pcr;
 
+import com.ericwang.jaccount.backend.SearchSet;
 import com.ericwang.jaccount.backend.scr.SingleConsumptionRecord;
 
 import java.sql.SQLException;
@@ -56,6 +57,18 @@ public class PrettyConsumptionRecordController {
         }
     }
 
+    public void getFromDb(String sql, SearchSet searchSet) {
+        if (repo != null) {
+            try {
+                repo.search(sql, searchSet);
+                refreshList();
+                System.out.println("get data from db: success");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     private void refreshList() {
         recordList.clear();
 

@@ -163,7 +163,7 @@ public class MyApplicationFrame extends JFrame {
 		private void setActionListener() {
 			confirmB.addActionListener(e -> {
 				runAnalyst();
-				controller.getFromDb(analyst.getSql(), analyst.getSearchSet().getDate());
+				controller.getFromDb(analyst.getSql(), analyst.getSearchSet());
 				cashFlowTable.initTable(controller);
 			});
 		}
