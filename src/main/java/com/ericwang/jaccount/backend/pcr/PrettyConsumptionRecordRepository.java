@@ -29,28 +29,20 @@ public class PrettyConsumptionRecordRepository {
 
 		tableHeaders = new TableHeaders(resultSet.getMetaData());
 	}
-	
+
 	public void query(String sql, String s) throws SQLException {
-		String sameday = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description\r\n"
-				+ "from single_consumption_record as consumption\r\n"
-				+ "join consumption_category as cc\r\n"
-				+ "on consumption.category_id = cc.id\r\n"
-				+ "WHERE date = ?\r\n"
-				+ "ORDER BY date";
-		PreparedStatement pstmt = connection.prepareStatement(sameday,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		pstmt.setString(1, s); 
-		
+		PreparedStatement pstmt = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+		pstmt.setString(1, s);
+
 		resultSet = pstmt.executeQuery();
-		while(resultSet.next()) {
-			System.out.println(resultSet.getString("date"));
-		}
 	}
-	
+
 	public void query(String sql, String date, String category) throws SQLException {
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, date);
 		statement.setString(2, category);
-		
+
 		boolean b = statement.execute();
 	}
 
@@ -94,7 +86,7 @@ public class PrettyConsumptionRecordRepository {
 		} catch (SQLException e) {
 		}
 	}
-	
+
 	public void delete(PrettyConsumptionRecord record) {
 		String sql = "DELETE FROM single_consumption_record WHERE id = ?;";
 		try {
