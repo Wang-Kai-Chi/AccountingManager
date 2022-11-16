@@ -1,5 +1,6 @@
 package com.ericwang.jaccount.backend.cc;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ConsumptionCategoryController {
@@ -9,11 +10,11 @@ public class ConsumptionCategoryController {
 
 	public ConsumptionCategoryController() {
 		recordList = new ArrayList<>();
-		headers = new String[] { "id", "name"};
-		
+		headers = new String[] { "id", "name" };
+
 		addDefaultValue();
 	}
-	
+
 	public ConsumptionCategoryController(ConsumptionCategoryRepository repo) {
 		this();
 		this.repo = repo;
@@ -24,8 +25,17 @@ public class ConsumptionCategoryController {
 		recordList.add(new ConsumptionCategory(2, "bill"));
 		recordList.add(new ConsumptionCategory(3, "transportation"));
 	}
-	
-	public void refresh() {
+
+	public void getFromDB() {
+		if (repo != null) {
+			try {
+				repo.query();
+			} catch (SQLException e) {
+			}
+		}
+	}
+
+	public void refreshList() {
 		recordList.clear();
 
 		for (int i = 1; i < repo.getRows() + 1; i++) {
@@ -34,7 +44,7 @@ public class ConsumptionCategoryController {
 
 		headers = repo.getHeaders();
 	}
-	
+
 	public void print() {
 		for (ConsumptionCategory c : recordList)
 			System.out.println(c);
@@ -47,6 +57,5 @@ public class ConsumptionCategoryController {
 	public String[] getHeaders() {
 		return headers;
 	}
-	
-	
+
 }

@@ -10,26 +10,26 @@ import java.sql.SQLException;
 
 public class MyApplicationBackEnd {
     private final ConsumptionCategoryController consumptionCategoryCon;
-    private final ConsumptionCategoryRepository consumptionCategoryRepo;
-
-    private final PrettyConsumptionRecordRepository prettyConsumptionRecordRepo;
     private final PrettyConsumptionRecordController prettyConsumptionRecordCon;
 
     public MyApplicationBackEnd(Connection connection) {
         System.out.println("connection start");
 
-        consumptionCategoryRepo = new ConsumptionCategoryRepository();
+        ConsumptionCategoryRepository consumptionCategoryRepo = new ConsumptionCategoryRepository();
         consumptionCategoryRepo.setConnection(connection);
         consumptionCategoryCon = new ConsumptionCategoryController(consumptionCategoryRepo);
 
-        prettyConsumptionRecordRepo = new PrettyConsumptionRecordRepository();
+        PrettyConsumptionRecordRepository prettyConsumptionRecordRepo = new PrettyConsumptionRecordRepository();
         prettyConsumptionRecordRepo.setConnection(connection);
         prettyConsumptionRecordCon = new PrettyConsumptionRecordController(prettyConsumptionRecordRepo);
     }
 
 	public void refresh() {
-        consumptionCategoryCon.refresh();
-        prettyConsumptionRecordCon.getFromDb();
+		consumptionCategoryCon.getFromDB();
+        consumptionCategoryCon.refreshList();
+        
+        prettyConsumptionRecordCon.getFromDB();
+        prettyConsumptionRecordCon.refreshList();
     }
 
     public void printData() {
@@ -38,16 +38,11 @@ public class MyApplicationBackEnd {
     }
 
     public void queryConsumptionCategory() {
-        try {
-            consumptionCategoryRepo.query();
-        } catch (SQLException ignored) {
-        }
+        consumptionCategoryCon.getFromDB();
     }
 
     public void queryPrettyConsumptionRecord(){
-        try {
-            prettyConsumptionRecordRepo.query();
-        } catch (SQLException ignored) {}
+        prettyConsumptionRecordCon.getFromDB();
     }
 
     public ConsumptionCategoryController getConsumptionCategoryCon() {

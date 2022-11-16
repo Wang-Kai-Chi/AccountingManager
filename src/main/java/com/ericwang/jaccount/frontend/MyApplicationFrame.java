@@ -130,7 +130,7 @@ public class MyApplicationFrame extends JFrame {
 		}
 		
 		private void handleRefresh() {
-			controller.getFromDb();
+			controller.getFromDB();
 			cashFlowTable.initTable(controller);
 			initSumLabel();
 		}

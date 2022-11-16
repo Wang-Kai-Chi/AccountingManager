@@ -21,7 +21,7 @@ public class PrettyConsumptionRecordController {
         this.repo = repo;
     }
 
-    public void getFromDb() {
+    public void getFromDB() {
         if (repo != null) {
             try {
                 repo.query();
@@ -33,7 +33,7 @@ public class PrettyConsumptionRecordController {
         }
     }
 
-    public void getFromDb(String sql) {
+    public void getFromDB(String sql) {
         if (repo != null) {
             try {
                 repo.query(sql);
@@ -57,7 +57,7 @@ public class PrettyConsumptionRecordController {
         }
     }
     
-    private void refreshList() {
+    public void refreshList() {
         recordList.clear();
 
         for (int i = 1; i < repo.getRows() + 1; i++)
