@@ -1,6 +1,10 @@
 package com.ericwang.jaccount.backend;
 
 public class SqlCommandCollection {
+	public static String selectPrettyConsumptionRecord = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description "
+			+ "from single_consumption_record as consumption " + "join consumption_category as cc "
+			+ "on consumption.category_id = cc.id;";
+	
 	public static String sameday = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description\r\n"
 			+ "from single_consumption_record as consumption\r\n"
 			+ "join consumption_category as cc\r\n"

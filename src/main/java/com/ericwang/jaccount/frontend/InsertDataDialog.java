@@ -1,24 +1,17 @@
 package com.ericwang.jaccount.frontend;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecord;
 import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordController;
 import com.ericwang.jaccount.frontend.widget.CategoryPicker;
 import com.ericwang.jaccount.frontend.widget.DatePicker;
-import com.ericwang.jaccount.frontend.widget.Description;
-import com.ericwang.jaccount.frontend.widget.MoneyInput;
+import com.ericwang.jaccount.frontend.widget.TextInputPanel;
 
 public class InsertDataDialog extends JDialog {
 	private JButton acceptB;
@@ -37,10 +30,10 @@ public class InsertDataDialog extends JDialog {
 		jp = new JPanel();
 		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
 		// jp.add(new TypePicker());
-		jp.add(new MoneyInput());
+		jp.add(new TextInputPanel("金額", 10));
 		jp.add(new DatePicker());
 		jp.add(new CategoryPicker(categories));
-		jp.add(new Description());
+		jp.add(new TextInputPanel("備註", 25));
 
 		add(jp, BorderLayout.NORTH);
 
@@ -74,12 +67,12 @@ public class InsertDataDialog extends JDialog {
 	}
 
 	private void addRecordToController() {
-		MoneyInput mi = (MoneyInput) jp.getComponent(0);
+		TextInputPanel mi = (TextInputPanel) jp.getComponent(0);
 		DatePicker dp = (DatePicker) jp.getComponent(1);
 		CategoryPicker cp = (CategoryPicker) jp.getComponent(2);
-		Description des = (Description) jp.getComponent(3);
+		TextInputPanel des = (TextInputPanel) jp.getComponent(3);
 
-		record = new PrettyConsumptionRecord(dp.getDate(), mi.getMoney(), cp.getCategory(), des.getString());
+		record = new PrettyConsumptionRecord(dp.getDate(), Integer.parseInt(mi.getText()), cp.getCategory(), des.getText());
 
 		controller.getRecordList().add(record);
 

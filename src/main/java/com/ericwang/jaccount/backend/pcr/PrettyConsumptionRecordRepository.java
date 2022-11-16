@@ -11,17 +11,15 @@ public class PrettyConsumptionRecordRepository {
 	private ResultSet resultSet;
 	private TableHeaders tableHeaders;
 	private Connection connection;
+	private SqlCommandCollection commands;
 
 	public void setConnection(Connection connection) {
 		this.connection = connection;
+		commands = new SqlCommandCollection();
 	}
 
 	public void query() throws SQLException {
-		String sql = "select consumption.id, consumption.date, consumption.amount_of_money, cc.name as category, consumption.description "
-				+ "from single_consumption_record as consumption " + "join consumption_category as cc "
-				+ "on consumption.category_id = cc.id;";
-
-		query(sql);
+		query(commands.selectPrettyConsumptionRecord);
 	}
 
 	public void query(String sql) throws SQLException {
@@ -33,8 +31,7 @@ public class PrettyConsumptionRecordRepository {
 	
 	public void search(String sql, SearchSet searchSet) throws SQLException {
 		PreparedStatement pstmt = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
-				ResultSet.CONCUR_UPDATABLE);
-		SqlCommandCollection commands = new SqlCommandCollection();
+				ResultSet.CONCUR_UPDATABLE); 
 		
 		if(sql.equals(commands.sameday)||sql.equals(commands.sameMonth)||sql.equals(commands.sameYear)) {
 			pstmt.setString(1, searchSet.getDate());			
@@ -58,14 +55,6 @@ public class PrettyConsumptionRecordRepository {
 		else {
 			System.out.println("search error");
 		}
-		resultSet = pstmt.executeQuery();
-	}
-
-	public void query(String sql, String s) throws SQLException {
-		PreparedStatement pstmt = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
-				ResultSet.CONCUR_UPDATABLE);
-		pstmt.setString(1, s);
-
 		resultSet = pstmt.executeQuery();
 	}
 

@@ -44,20 +44,8 @@ public class PrettyConsumptionRecordController {
             }
         }
     }
-    
-    public void getFromDb(String sql, String s) {
-        if (repo != null) {
-            try {
-                repo.query(sql, s);
-                refreshList();
-                System.out.println("get data from db: success");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
-    public void getFromDb(String sql, SearchSet searchSet) {
+    public void searchFromDb(String sql, SearchSet searchSet) {
         if (repo != null) {
             try {
                 repo.search(sql, searchSet);

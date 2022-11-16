@@ -88,20 +88,11 @@ public class MyApplicationFrame extends JFrame {
 		}
 
 		private void setActionListeners() {
-			addB.addActionListener(e -> {
-				insertDialog.setVisible(true);
-				cashFlowTable.add();
-				initSumLabel();
-			});
+			addB.addActionListener(e -> handleAdd());
 
 			deleteB.addActionListener(e -> {
 				try {
-					int check = JOptionPane.showConfirmDialog(this, "確定要刪除這筆資料嗎", "刪除", JOptionPane.DEFAULT_OPTION);
-
-					if (check == JOptionPane.YES_OPTION) {
-						controller.deleteFromDb(getRecordFromController());
-						cashFlowTable.initTable(controller);
-					}
+					handleDelete();
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(this, "請先選擇資料");
 				}
@@ -109,18 +100,39 @@ public class MyApplicationFrame extends JFrame {
 
 			updateB.addActionListener(e -> {
 				try {
-					updateDialog.setRecord(getRecordFromController());
-					updateDialog.setVisible(true);
+					handleUpdate();
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(this, "請先選擇資料");
 				}
 			});
 
-			refreshB.addActionListener(e -> {
-				controller.getFromDb();
+			refreshB.addActionListener(e -> handleRefresh());
+		}
+
+		private void handleAdd() {
+			insertDialog.setVisible(true);
+			cashFlowTable.add();
+			initSumLabel();
+		}
+
+		private void handleDelete() {
+			int check = JOptionPane.showConfirmDialog(this, "確定要刪除這筆資料嗎", "刪除", JOptionPane.DEFAULT_OPTION);
+
+			if (check == JOptionPane.YES_OPTION) {
+				controller.deleteFromDb(getRecordFromController());
 				cashFlowTable.initTable(controller);
-				initSumLabel();
-			});
+			}
+		}
+
+		private void handleUpdate() {
+			updateDialog.setRecord(getRecordFromController());
+			updateDialog.setVisible(true);
+		}
+		
+		private void handleRefresh() {
+			controller.getFromDb();
+			cashFlowTable.initTable(controller);
+			initSumLabel();
 		}
 
 		private PrettyConsumptionRecord getRecordFromController() {
@@ -161,18 +173,21 @@ public class MyApplicationFrame extends JFrame {
 		}
 
 		private void setActionListener() {
-			confirmB.addActionListener(e -> {
-				runAnalyst();
-				controller.getFromDb(analyst.getSql(), analyst.getSearchSet());
-				cashFlowTable.initTable(controller);
-			});
+			confirmB.addActionListener(e -> handleSearch());
 		}
 		
+		private void handleSearch() {
+			runAnalyst();
+			controller.searchFromDb(analyst.getSql(), analyst.getSearchSet());
+			cashFlowTable.initTable(controller);
+			initSumLabel();			
+		}
+
 		private void runAnalyst() {
 			analyst.setSearchSet(getSearchSet());
 			analyst.analyze();
 			System.out.println(analyst.getCursor());
-			
+
 		}
 
 		public SearchSet getSearchSet() {
@@ -219,8 +234,6 @@ class SearchSetAnalyst {
 	public void setSearchSet(SearchSet searchSet) {
 		this.searchSet = searchSet;
 	}
-	
-	
 
 	public SearchSet getSearchSet() {
 		return searchSet;

@@ -6,22 +6,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Description extends JPanel {
-	JLabel label01;
-	JTextField textF;
+public class TextInputPanel extends JPanel{
+	private JLabel label;
+	private JTextField textF;
 
-	public Description() {
+	public TextInputPanel(String summary, int col) {
 		super(new FlowLayout());
 
-		label01 = new JLabel("備註");
-		add(label01);
+		label = new JLabel(summary);
+		add(label);
 
 		textF = new JTextField();
-		textF.setColumns(25);
+		textF.setColumns(col);
 		add(textF);
 	}
 
-	public void setDescription(String s) {
+	public void setText(String s) {
 		textF.setText(s);
 	}
 
@@ -29,7 +29,7 @@ public class Description extends JPanel {
 		textF.setText("");
 	}
 
-	public String getString() {
+	public String getText() {
 		return textF.getText();
 	}
 }
