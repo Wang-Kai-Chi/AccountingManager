@@ -8,11 +8,11 @@ import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordRepository;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class MyApplicationBackEnd {
+public class ControllerService {
     private final ConsumptionCategoryController consumptionCategoryCon;
     private final PrettyConsumptionRecordController prettyConsumptionRecordCon;
 
-    public MyApplicationBackEnd(Connection connection) {
+    public ControllerService(Connection connection) {
         System.out.println("connection start");
 
         ConsumptionCategoryRepository consumptionCategoryRepo = new ConsumptionCategoryRepository();
