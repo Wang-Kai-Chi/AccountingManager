@@ -3,6 +3,8 @@ package com.ericwang.jaccount;
 
 import com.ericwang.jaccount.backend.MyApplicationBackEnd;
 import com.ericwang.jaccount.backend.MySQLConnectionBuilder;
+import com.ericwang.jaccount.backend.SQLCInitializer;
+import com.ericwang.jaccount.backend.SQLCommand;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategory;
 import com.ericwang.jaccount.backend.cc.ConsumptionCategoryController;
 import com.ericwang.jaccount.backend.pcr.PrettyConsumptionRecordController;
@@ -14,6 +16,10 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Welcome to JAccountingManager!!");
+        
+        SQLCInitializer sqlcInitializer = new SQLCInitializer();
+        System.out.println(SQLCommand.SELECT_PRETTY+": "+SQLCommand.SELECT_PRETTY.getSql());
+        System.out.println(SQLCommand.SELECT_SAME_DATE+": "+SQLCommand.SELECT_SAME_DATE.getSql());
 
         ConsumptionCategoryController consumptionCategoryController;
         PrettyConsumptionRecordController prettyConsumptionRecordController;
@@ -25,7 +31,6 @@ public class Main {
             myApplicationBackEnd.queryPrettyConsumptionRecord();
 
             myApplicationBackEnd.refresh();
-            myApplicationBackEnd.printData();
 
             consumptionCategoryController = myApplicationBackEnd.getConsumptionCategoryCon();
             prettyConsumptionRecordController = myApplicationBackEnd.getPrettyConsumptionRecordCon();
